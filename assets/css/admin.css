@@ -338,6 +338,32 @@
     .topbar-title{
         font-size: 1.1rem;
     }
+    .stat-card{
+        padding: 14px;
+        gap: 10px;
+    }
+    .stat-icon{
+        width: 40px;
+        height: 40px;
+        font-size: 1.05rem;
+        border-radius: 10px;
+    }
+    .stat-info{
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+    .stat-info h3{
+        font-size: 1.15rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .stat-info p{
+        font-size: .72rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
 /* ==========================================

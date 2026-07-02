@@ -857,6 +857,17 @@ select:focus {
         width: 100%;
     }
 
+    /* Navbar utility buttons (theme + RTL toggle) should stay compact,
+       not stretch full-width like the hero/CTA buttons above */
+    #themeToggle,
+    #rtlToggle {
+        width: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 8px 0;
+    }
+
     * {
         animation: none !important;
     }
