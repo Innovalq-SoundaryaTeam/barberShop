@@ -806,12 +806,20 @@ select:focus {
 .page-banner {
     padding: 180px 0 100px;
     text-align: center;
+    background-color: #000;
+    position: relative;
+}
+
+.page-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
     background: linear-gradient(
         180deg,
         rgba(0,0,0,.55) 0%,
         rgba(0,0,0,.78) 100%
     );
-    position: relative;
+    pointer-events: none;
 }
 
 .page-banner::after {
@@ -921,25 +929,13 @@ select:focus {
 }
 
 .page-banner {
-    padding: 180px 0 100px;
-    text-align: center;
-    background:
-        linear-gradient(
-            rgba(0,0,0,.75),
-            rgba(0,0,0,.75)
-        ),
-        url('https://images.pexels.com/photos/4969864/pexels-photo-4969864.jpeg?auto=compress&cs=tinysrgb&w=1600');
+    background-image: url('https://images.pexels.com/photos/4969864/pexels-photo-4969864.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size: cover;
     background-position: center;
 }
 
 .about-banner {
-    background:
-        linear-gradient(
-            rgba(0,0,0,.75),
-            rgba(0,0,0,.75)
-        ),
-        url('../images/about-hero.webp');
+    background-image: url('../images/about-hero.webp');
     background-size: cover;
     background-position: center;
 }
@@ -955,13 +951,7 @@ select:focus {
 ========================================== */
 
 .services-banner {
-    background:
-        linear-gradient(
-            rgba(0,0,0,.75),
-            rgba(0,0,0,.75)
-        ),
-        url('https://images.pexels.com/photos/18503633/pexels-photo-18503633.jpeg?auto=compress&cs=tinysrgb&w=1600');
-
+    background-image: url('https://images.pexels.com/photos/18503633/pexels-photo-18503633.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size: cover;
     background-position: center;
 }
@@ -978,13 +968,7 @@ select:focus {
 ========================================== */
 
 .service-details-banner{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.75)
-    ),
-    url('https://images.pexels.com/photos/7518723/pexels-photo-7518723.jpeg?auto=compress&cs=tinysrgb&w=1600');
-
+    background-image: url('https://images.pexels.com/photos/7518723/pexels-photo-7518723.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size:cover;
     background-position:center;
 }
@@ -1014,13 +998,7 @@ select:focus {
 ========================================== */
 
 .gallery-banner{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.75)
-    ),
-    url('https://images.pexels.com/photos/16997937/pexels-photo-16997937.jpeg?auto=compress&cs=tinysrgb&w=1600');
-
+    background-image: url('https://images.pexels.com/photos/16997937/pexels-photo-16997937.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size:cover;
     background-position:center;
 }
@@ -1072,13 +1050,7 @@ select:focus {
 ========================================== */
 
 .pricing-banner{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.75)
-    ),
-    url('https://images.pexels.com/photos/8867554/pexels-photo-8867554.jpeg?auto=compress&cs=tinysrgb&w=1600');
-
+    background-image: url('https://images.pexels.com/photos/8867554/pexels-photo-8867554.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size:cover;
     background-position:center;
 }
@@ -1165,13 +1137,7 @@ select:focus {
 ========================================== */
 
 .blog-banner{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.75)
-    ),
-    url('https://images.pexels.com/photos/7589418/pexels-photo-7589418.jpeg?auto=compress&cs=tinysrgb&w=1600');
-
+    background-image: url('https://images.pexels.com/photos/7589418/pexels-photo-7589418.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size:cover;
     background-position:center;
 }
@@ -1229,13 +1195,7 @@ select:focus {
 ========================================== */
 
 .blog-single-banner{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.75)
-    ),
-    url('https://images.pexels.com/photos/6487888/pexels-photo-6487888.jpeg?auto=compress&cs=tinysrgb&w=1600');
-
+    background-image: url('https://images.pexels.com/photos/6487888/pexels-photo-6487888.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size:cover;
     background-position:center;
 }
@@ -1316,13 +1276,7 @@ select:focus {
 ========================================== */
 
 .contact-banner{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.75)
-    ),
-    url('https://images.pexels.com/photos/897263/pexels-photo-897263.jpeg?auto=compress&cs=tinysrgb&w=1600');
-
+    background-image: url('https://images.pexels.com/photos/897263/pexels-photo-897263.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size:cover;
     background-position:center;
 }
@@ -1390,13 +1344,7 @@ select:focus {
 ========================================== */
 
 .faq-banner{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.75)
-    ),
-    url('https://images.pexels.com/photos/33461079/pexels-photo-33461079.jpeg?auto=compress&cs=tinysrgb&w=1600');
-
+    background-image: url('https://images.pexels.com/photos/33461079/pexels-photo-33461079.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size:cover;
     background-position:center;
 }
@@ -1449,13 +1397,7 @@ select:focus {
 ========================================== */
 
 .testimonials-banner{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.75)
-    ),
-    url('https://images.pexels.com/photos/7432863/pexels-photo-7432863.jpeg?auto=compress&cs=tinysrgb&w=1600');
-
+    background-image: url('https://images.pexels.com/photos/7432863/pexels-photo-7432863.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size:cover;
     background-position:center;
 }
@@ -1535,12 +1477,7 @@ select:focus {
 ========================================== */
 
 .team-banner{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.75)
-    ),
-    url('https://images.pexels.com/photos/7697320/pexels-photo-7697320.jpeg?auto=compress&cs=tinysrgb&w=1600');
+    background-image: url('https://images.pexels.com/photos/7697320/pexels-photo-7697320.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size:cover;
     background-position:center;
 }
@@ -1721,13 +1658,7 @@ select:focus {
 ========================================== */
 
 .careers-banner{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.75)
-    ),
-    url('https://images.pexels.com/photos/7697231/pexels-photo-7697231.jpeg?auto=compress&cs=tinysrgb&w=1600');
-
+    background-image: url('https://images.pexels.com/photos/7697231/pexels-photo-7697231.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size:cover;
     background-position:center;
 }
@@ -1803,13 +1734,7 @@ select:focus {
 ========================================== */
 
 .privacy-banner{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.75)
-    ),
-    url('https://images.pexels.com/photos/33418521/pexels-photo-33418521.jpeg?auto=compress&cs=tinysrgb&w=1600');
-
+    background-image: url('https://images.pexels.com/photos/33418521/pexels-photo-33418521.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size:cover;
     background-position:center;
 }
@@ -1852,13 +1777,7 @@ select:focus {
 ========================================== */
 
 .terms-banner{
-    background:
-    linear-gradient(
-        rgba(0,0,0,.75),
-        rgba(0,0,0,.75)
-    ),
-    url('https://images.pexels.com/photos/35157699/pexels-photo-35157699.jpeg?auto=compress&cs=tinysrgb&w=1600');
-
+    background-image: url('https://images.pexels.com/photos/35157699/pexels-photo-35157699.jpeg?auto=compress&cs=tinysrgb&w=1600');
     background-size:cover;
     background-position:center;
 }

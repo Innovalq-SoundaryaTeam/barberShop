@@ -96,12 +96,8 @@ body.light-mode .blog-card:hover {
    PAGE BANNERS
    ================================================== */
 
-body.light-mode .page-banner {
-    background:
-        linear-gradient(
-            rgba(255,255,255,.85),
-            rgba(255,255,255,.85)
-        );
+body.light-mode .page-banner::before {
+    background: rgba(255,255,255,.85);
 }
 
 body.light-mode .page-banner h1,
