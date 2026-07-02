@@ -694,6 +694,22 @@ select:focus {
     color: #1a1a1a;
 }
 
+.cta-banner p,
+.cta-banner .lead {
+    color: #1a1a1a;
+    opacity: .85;
+}
+
+.cta-banner .btn-outline-barber {
+    border-color: #1a1a1a;
+    color: #1a1a1a;
+}
+
+.cta-banner .btn-outline-barber:hover {
+    background: #1a1a1a;
+    color: var(--color-primary);
+}
+
 .cta-banner:hover {
     filter: brightness(1.05);
     transform: translateY(-3px);
