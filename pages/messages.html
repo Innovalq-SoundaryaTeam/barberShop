@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../assets/js/auth.js"></script>
+    <script>window.BSAuth.guardAdminPage("admin-login.html");</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages | Barber Studio Admin</title>
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="icon" href="../assets/images/favicon.svg">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dark-mode.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+
+<div class="admin-wrapper">
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-brand">
+            <a href="dashboard.html"><i class="fas fa-scissors"></i> <span>Barber Studio</span></a>
+            <button class="sidebar-close" id="sidebarClose" aria-label="Close menu"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="dashboard.html" class="nav-link"><i class="fas fa-gauge-high"></i><span>Dashboard</span></a></li>
+                <li><a href="customers.html" class="nav-link"><i class="fas fa-users"></i><span>Customers</span></a></li>
+                <li><a href="services-admin.html" class="nav-link"><i class="fas fa-scissors"></i><span>Services</span></a></li>
+                <li><a href="appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i><span>Appointments</span></a></li>
+                <li><a href="staff.html" class="nav-link"><i class="fas fa-user-tie"></i><span>Staff</span></a></li>
+                <li><a href="payments.html" class="nav-link"><i class="fas fa-credit-card"></i><span>Payments</span></a></li>
+                <li><a href="reviews.html" class="nav-link"><i class="fas fa-star"></i><span>Reviews</span></a></li>
+                <li><a href="messages.html" class="nav-link active"><i class="fas fa-envelope"></i><span>Messages</span></a></li>
+                <li><a href="settings.html" class="nav-link"><i class="fas fa-gear"></i><span>Settings</span></a></li>
+            </ul>
+            <ul class="sidebar-bottom">
+                <li><a href="admin-login.html" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main -->
+    <div class="admin-main">
+
+        <header class="admin-topbar">
+            <div class="topbar-left">
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+                <h1 class="topbar-title">Messages</h1>
+            </div>
+            <div class="topbar-right">
+                <button id="themeToggle" class="btn-icon" aria-label="Toggle Dark Light Mode"><i class="fas fa-sun"></i></button>
+                <div class="admin-profile">
+                    <img src="../assets/images/team-1.jpg" alt="Admin">
+                    <span>Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="admin-content">
+
+            <div class="page-heading">
+                <div>
+                    <h2 class="mb-0">Messages</h2>
+                    <p>Enquiries submitted through the website contact form.</p>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-6 col-lg-3">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="stat-info"><h3 id="statTotal">3</h3><p>Total Messages</p></div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="fas fa-envelope-open-text"></i></div>
+                        <div class="stat-info"><h3 id="statNew">0</h3><p>New (Unread)</p></div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="fas fa-calendar-day"></i></div>
+                        <div class="stat-info"><h3 id="statToday">0</h3><p>Received Today</p></div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="stat-card">
+                        <div class="stat-icon orange"><i class="fas fa-reply"></i></div>
+                        <div class="stat-info"><h3>2</h3><p>Replied</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h2>All Messages</h2>
+                    <div class="admin-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="form-control" placeholder="Search messages..." data-table-search="messagesTable">
+                    </div>
+                </div>
+                <div class="table-responsive-wrap">
+                    <table class="admin-table" id="messagesTable">
+                        <thead>
+                            <tr>
+                                <th>From</th>
+                                <th>Subject / Service</th>
+                                <th>Message</th>
+                                <th>Received</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="cell-user">
+                                        <div class="avatar-circle">RK</div>
+                                        <div>
+                                            <p class="cell-title">Rahul Kumar</p>
+                                            <p class="cell-sub">rahul.kumar@email.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Precision Haircut</td>
+                                <td>Do you take walk-ins on weekends, or is booking required?</td>
+                                <td>2 days ago</td>
+                                <td><span class="badge-status completed">Replied</span></td>
+                                <td>
+                                    <button class="btn-icon-action" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon-action danger" title="Delete" data-remove-row><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="cell-user">
+                                        <div class="avatar-circle">AS</div>
+                                        <div>
+                                            <p class="cell-title">Amit Sharma</p>
+                                            <p class="cell-sub">amit.sharma@email.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>VIP Membership</td>
+                                <td>Interested in the VIP membership plan, can you share pricing details?</td>
+                                <td>5 days ago</td>
+                                <td><span class="badge-status completed">Replied</span></td>
+                                <td>
+                                    <button class="btn-icon-action" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon-action danger" title="Delete" data-remove-row><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="cell-user">
+                                        <div class="avatar-circle">VS</div>
+                                        <div>
+                                            <p class="cell-title">Vikram Singh</p>
+                                            <p class="cell-sub">vikram.singh@email.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>General Inquiry</td>
+                                <td>What are your opening hours on public holidays?</td>
+                                <td>1 week ago</td>
+                                <td><span class="badge-status pending">Pending</span></td>
+                                <td>
+                                    <button class="btn-icon-action" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon-action danger" title="Delete" data-remove-row><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/admin.js"></script>
+
+<script>
+    (function renderRealMessages() {
+
+        function getInquiries() {
+            try {
+                return JSON.parse(localStorage.getItem('bs_inquiries')) || [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function initials(name) {
+            return (name || '?')
+                .trim()
+                .split(/\s+/)
+                .map(function (part) { return part.charAt(0).toUpperCase(); })
+                .slice(0, 2)
+                .join('') || '?';
+        }
+
+        function timeAgo(isoDate) {
+            const then = new Date(isoDate).getTime();
+            const now = Date.now();
+            const diffMs = now - then;
+            const minutes = Math.floor(diffMs / 60000);
+
+            if (minutes < 1) return 'Just now';
+            if (minutes < 60) return minutes + ' min ago';
+
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return hours + (hours === 1 ? ' hour ago' : ' hours ago');
+
+            const days = Math.floor(hours / 24);
+            return days + (days === 1 ? ' day ago' : ' days ago');
+        }
+
+        function isToday(isoDate) {
+            const d = new Date(isoDate);
+            const now = new Date();
+            return d.getFullYear() === now.getFullYear() &&
+                d.getMonth() === now.getMonth() &&
+                d.getDate() === now.getDate();
+        }
+
+        const serviceLabels = {
+            'precision-haircut': 'Precision Haircut',
+            'beard-grooming': 'Beard Grooming',
+            'hot-towel-shave': 'Hot Towel Shave',
+            'hair-coloring': 'Hair Coloring',
+            'facial-treatment': 'Facial Treatment',
+            'premium-package': 'Premium Package',
+            'hair-styling': 'Hair Styling',
+            'scalp-treatment': 'Scalp Treatment',
+            'vip-membership': 'VIP Membership'
+        };
+
+        const inquiries = getInquiries();
+
+        const tbody = document.querySelector('#messagesTable tbody');
+
+        if (tbody && inquiries.length) {
+
+            inquiries.forEach(function (entry) {
+
+                const row = document.createElement('tr');
+
+                const subject = serviceLabels[entry.service] || entry.subject || 'General Inquiry';
+
+                row.innerHTML =
+                    '<td>' +
+                        '<div class="cell-user">' +
+                            '<div class="avatar-circle">' + initials(entry.name) + '</div>' +
+                            '<div>' +
+                                '<p class="cell-title">' + (entry.name || 'Unknown') + '</p>' +
+                                '<p class="cell-sub">' + (entry.email || '') + '</p>' +
+                            '</div>' +
+                        '</div>' +
+                    '</td>' +
+                    '<td>' + subject + '</td>' +
+                    '<td>' + (entry.message || '-') + '</td>' +
+                    '<td>' + timeAgo(entry.submittedAt) + '</td>' +
+                    '<td><span class="badge-status new">New</span></td>' +
+                    '<td>' +
+                        '<button class="btn-icon-action" title="View"><i class="fas fa-eye"></i></button>' +
+                        '<button class="btn-icon-action danger" title="Delete" data-remove-row><i class="fas fa-trash"></i></button>' +
+                    '</td>';
+
+                tbody.insertBefore(row, tbody.firstChild);
+
+            });
+
+            tbody.querySelectorAll('[data-remove-row]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    const target = btn.closest('tr');
+                    if (target && window.confirm('Delete this record?')) {
+                        target.remove();
+                    }
+                });
+            });
+        }
+
+        // Update stat cards with real counts (base demo count of 3 + real ones)
+        const statTotal = document.getElementById('statTotal');
+        const statNew = document.getElementById('statNew');
+        const statToday = document.getElementById('statToday');
+
+        if (statTotal) {
+            const base = parseInt(statTotal.textContent, 10) || 0;
+            statTotal.textContent = base + inquiries.length;
+        }
+
+        if (statNew) {
+            statNew.textContent = inquiries.length;
+        }
+
+        if (statToday) {
+            const todayCount = inquiries.filter(function (entry) {
+                return isToday(entry.submittedAt);
+            }).length;
+            statToday.textContent = todayCount;
+        }
+
+    })();
+</script>
+
+</body>
+</html>

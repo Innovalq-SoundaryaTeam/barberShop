@@ -1,0 +1,155 @@
+==================================================
+THE BARBER STUDIO
+CUSTOMIZATION GUIDE
+==================================================
+
+1. Changing Website Name
+------------------------------------------
+
+Edit the title inside each HTML file:
+
+<title>The Barber Studio</title>
+
+Also change:
+
+Barber Studio
+The Barber Studio
+
+to your business name.
+
+==================================================
+2. Changing Logo
+==================================================
+
+Replace:
+
+assets/images/logo.webp
+
+Update:
+
+<img src="../assets/images/logo.webp">
+
+==================================================
+3. Changing Hero Background Image
+==================================================
+
+Replace:
+
+assets/images/hero-barber.webp
+
+CSS:
+
+.home-hero{
+    background-image:
+    url('../images/hero-barber.webp');
+}
+
+==================================================
+4. Changing Colors
+==================================================
+
+Edit:
+
+assets/css/style.css
+
+Example:
+
+:root{
+    --color-primary:#c59d5f;
+    --color-bg:#111111;
+    --color-text:#ffffff;
+}
+
+==================================================
+5. Dark Mode Colors
+==================================================
+
+Edit:
+
+assets/css/dark-mode.css
+
+Example:
+
+body.dark-mode{
+    --bg-color:#111111;
+    --text-color:#ffffff;
+    --card-color:#1c1c1c;
+    --border-color:#333333;
+}
+
+==================================================
+6. Add Gallery Images
+==================================================
+
+1. Upload images to:
+
+assets/images/
+
+2. Add HTML:
+
+<div class="gallery-item">
+    <img
+    src="../assets/images/gallery-1.webp"
+    alt="Gallery Image">
+</div>
+
+==================================================
+7. Edit Services
+==================================================
+
+Open:
+
+pages/services.html
+
+Modify:
+
+- Haircut
+- Beard Trim
+- Hot Towel Shave
+- Hair Coloring
+
+==================================================
+8. Edit Pricing
+==================================================
+
+Open:
+
+pages/pricing.html
+
+Change:
+
+Service Name
+Price
+
+==================================================
+9. Contact Information
+==================================================
+
+Open:
+
+pages/contact.html
+
+Update:
+
+Address
+Phone Number
+Email
+Business Hours
+
+==================================================
+10. Social Media Links
+==================================================
+
+Update:
+
+Facebook
+Instagram
+Twitter
+YouTube
+
+==================================================
+END OF CUSTOMIZATION GUIDE
+==================================================
+
+
+

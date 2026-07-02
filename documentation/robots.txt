@@ -1,0 +1,29 @@
+# ==========================================
+# The Barber Studio
+# robots.txt
+# ==========================================
+
+User-agent: *
+
+Allow: /
+
+# Authentication Pages
+
+Disallow: /pages/login.html
+Disallow: /pages/register.html
+Disallow: /pages/forgot-password.html
+
+# Admin Area
+
+Disallow: /admin/
+Disallow: /dashboard/
+
+# Assets
+
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/images/
+
+# Sitemap
+
+Sitemap: https://www.yourdomain.com/sitemap.xml

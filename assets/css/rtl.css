@@ -1,0 +1,309 @@
+
+
+/* ==================================================
+   GLOBAL RTL
+   ================================================== */
+
+html[dir="rtl"] body {
+    direction: rtl;
+    text-align: right;
+}
+
+/* ==================================================
+   TYPOGRAPHY
+   ================================================== */
+
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3,
+html[dir="rtl"] h4,
+html[dir="rtl"] h5,
+html[dir="rtl"] h6,
+html[dir="rtl"] p,
+html[dir="rtl"] li,
+html[dir="rtl"] a,
+html[dir="rtl"] span,
+html[dir="rtl"] label {
+    text-align: right;
+}
+
+/* ==================================================
+   NAVBAR
+   ================================================== */
+
+html[dir="rtl"] .navbar-nav {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+html[dir="rtl"] .navbar-brand {
+    margin-left: 1rem;
+    margin-right: 0;
+}
+
+html[dir="rtl"] .navbar-toggler {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* ==================================================
+   NAV LINK UNDERLINE
+   ================================================== */
+
+html[dir="rtl"] .nav-link::after {
+    right: 0;
+    left: auto;
+}
+
+/* ==================================================
+   BUTTONS
+   ================================================== */
+
+html[dir="rtl"] .btn-barber i,
+html[dir="rtl"] .btn-outline-barber i {
+    margin-left: 0.5rem;
+    margin-right: 0;
+}
+
+/* ==================================================
+   LISTS
+   ================================================== */
+
+html[dir="rtl"] ul,
+html[dir="rtl"] ol {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+/* ==================================================
+   ICON BOXES
+   ================================================== */
+
+html[dir="rtl"] .service-icon {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* ==================================================
+   CARDS
+   ================================================== */
+
+html[dir="rtl"] .card-body-custom {
+    text-align: right;
+}
+
+/* ==================================================
+   FORMS
+   ================================================== */
+
+html[dir="rtl"] .form-control,
+html[dir="rtl"] .form-select,
+html[dir="rtl"] textarea {
+    text-align: right;
+}
+
+html[dir="rtl"] .error-message {
+    text-align: right;
+}
+
+/* ==================================================
+   INPUT GROUPS
+   ================================================== */
+
+html[dir="rtl"] .input-group > .form-control {
+    border-radius: 0 .375rem .375rem 0;
+}
+
+html[dir="rtl"] .input-group-text {
+    border-radius: .375rem 0 0 .375rem;
+}
+
+/* ==================================================
+   TABLES
+   ================================================== */
+
+html[dir="rtl"] table {
+    direction: rtl;
+}
+
+html[dir="rtl"] th,
+html[dir="rtl"] td {
+    text-align: right;
+}
+
+/* ==================================================
+   ACCORDION
+   ================================================== */
+
+html[dir="rtl"] .accordion-button {
+    text-align: right;
+}
+
+html[dir="rtl"] .accordion-button::after {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* ==================================================
+   BLOG SIDEBAR
+   ================================================== */
+
+html[dir="rtl"] .sidebar-widget ul {
+    padding-right: 0;
+}
+
+/* ==================================================
+   FOOTER
+   ================================================== */
+
+html[dir="rtl"] .footer {
+    text-align: right;
+}
+
+html[dir="rtl"] .footer ul {
+    padding-right: 0;
+}
+
+/* ==================================================
+   SOCIAL ICONS
+   ================================================== */
+
+html[dir="rtl"] .social-links a {
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+/* ==================================================
+   BREADCRUMBS
+   ================================================== */
+
+html[dir="rtl"] .breadcrumb {
+    direction: rtl;
+}
+
+html[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
+    float: right;
+    padding-left: .5rem;
+    padding-right: 0;
+}
+
+/* ==================================================
+   GALLERY FILTERS
+   ================================================== */
+
+html[dir="rtl"] .gallery-filters,
+html[dir="rtl"] .blog-filters {
+    direction: rtl;
+}
+
+/* ==================================================
+   TESTIMONIALS
+   ================================================== */
+
+html[dir="rtl"] .testimonial-card {
+    text-align: right;
+}
+
+/* ==================================================
+   CTA BANNER
+   ================================================== */
+
+html[dir="rtl"] .cta-banner {
+    text-align: center;
+}
+
+/* ==================================================
+   CONTACT PAGE
+   ================================================== */
+
+html[dir="rtl"] .contact-info {
+    text-align: right;
+}
+
+html[dir="rtl"] .contact-info i {
+    margin-left: .75rem;
+    margin-right: 0;
+}
+
+/* ==================================================
+   MAP EMBED
+   ================================================== */
+
+html[dir="rtl"] iframe {
+    direction: rtl;
+}
+
+/* ==================================================
+   FLEX UTILITIES
+   ================================================== */
+
+html[dir="rtl"] .d-flex {
+    flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .justify-content-between {
+    flex-direction: row-reverse;
+}
+
+/* ==================================================
+   MARGIN UTILITIES
+   ================================================== */
+
+html[dir="rtl"] .ms-auto {
+    margin-right: auto !important;
+    margin-left: 0 !important;
+}
+
+html[dir="rtl"] .me-auto {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+html[dir="rtl"] .ms-1,
+html[dir="rtl"] .ms-2,
+html[dir="rtl"] .ms-3,
+html[dir="rtl"] .ms-4,
+html[dir="rtl"] .ms-5 {
+    margin-right: inherit !important;
+    margin-left: 0 !important;
+}
+
+html[dir="rtl"] .me-1,
+html[dir="rtl"] .me-2,
+html[dir="rtl"] .me-3,
+html[dir="rtl"] .me-4,
+html[dir="rtl"] .me-5 {
+    margin-left: inherit !important;
+    margin-right: 0 !important;
+}
+
+/* ==================================================
+   BOOTSTRAP GRID FIXES
+   ================================================== */
+
+html[dir="rtl"] .row {
+    flex-direction: row-reverse;
+}
+
+/* ==================================================
+   MOBILE RTL
+   ================================================== */
+
+@media (max-width: 640px) {
+
+    html[dir="rtl"] .navbar-collapse {
+        text-align: right;
+    }
+
+    html[dir="rtl"] .hero-content {
+        text-align: center;
+    }
+
+    html[dir="rtl"] .section-title {
+        text-align: center;
+    }
+
+    html[dir="rtl"] .cta-banner {
+        text-align: center;
+    }
+}

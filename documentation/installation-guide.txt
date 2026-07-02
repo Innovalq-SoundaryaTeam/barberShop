@@ -1,0 +1,76 @@
+==================================================
+INSTALLATION STEPS
+==================================================
+
+1. Download and extract the project files.
+
+2. Open the project folder in Visual Studio Code.
+
+3. Install the Live Server extension:
+   Extensions → Search "Live Server" → Install.
+
+4. Right-click pages/index.html and select:
+   "Open with Live Server"
+
+5. The website will open in your browser.
+
+==================================================
+ADDING IMAGES
+==================================================
+
+Place all images inside:
+
+assets/images/
+
+Examples:
+hero-barber.webp
+gallery-1.webp
+about-story.webp
+team-1.webp
+
+==================================================
+ADDING FONTS
+==================================================
+
+Place custom fonts inside:
+
+assets/fonts/
+
+==================================================
+ADDING JAVASCRIPT FILES
+==================================================
+
+Place JavaScript files inside:
+
+assets/js/
+
+==================================================
+TROUBLESHOOTING
+==================================================
+
+If CSS is not loading:
+
+Check:
+
+../assets/css/style.css
+
+If JavaScript is not loading:
+
+Check:
+
+../assets/js/main.js
+
+If images are not loading:
+
+Check:
+
+../assets/images/
+
+==================================================
+END OF INSTALLATION GUIDE
+==================================================
+
+
+
+
+

@@ -1,0 +1,68 @@
+==================================================
+THE BARBER STUDIO
+CREDITS
+==================================================
+
+Template Name:
+The Barber Studio
+
+Developed By:
+Your Name
+
+==================================================
+TECHNOLOGIES USED
+==================================================
+
+HTML5
+CSS3
+JavaScript
+Bootstrap 5
+
+==================================================
+FONTS
+==================================================
+
+Google Fonts
+- Oswald
+- Open Sans
+
+https://fonts.google.com
+
+==================================================
+ICONS
+==================================================
+
+Font Awesome 6
+
+https://fontawesome.com
+
+==================================================
+FRAMEWORKS
+==================================================
+
+Bootstrap 5
+
+https://getbootstrap.com
+
+==================================================
+IMAGES
+==================================================
+
+Unsplash
+https://unsplash.com
+
+Pexels
+https://pexels.com
+
+Pixabay
+https://pixabay.com
+
+==================================================
+THANK YOU
+==================================================
+
+Thank you for using
+The Barber Studio template.
+
+
+

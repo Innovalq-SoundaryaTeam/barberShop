@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Blog | The Barber Studio</title>
+
+    <meta name="description"
+        content="Read grooming tips, hairstyle trends, beard care guides, and barbering insights from The Barber Studio.">
+
+    <meta name="keywords"
+        content="barber blog, grooming tips, beard care, men's hairstyles">
+
+    <link rel="icon"
+        href="../assets/images/favicon.svg">
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Custom CSS -->
+
+    <link rel="stylesheet"
+        href="../assets/css/style.css">
+
+    <link rel="stylesheet"
+        href="../assets/css/dark-mode.css">
+
+    <link rel="stylesheet"
+        href="../assets/css/rtl.css">
+
+</head>
+
+<body>
+
+    <a href="#mainContent"
+        class="visually-hidden-focusable">
+
+        Skip to Main Content
+
+    </a>
+
+        <header>
+            <nav class="navbar navbar-expand-lg fixed-top"
+            aria-label="Main Navigation">
+
+            <div class="container">
+
+                <a class="navbar-brand"
+                    href="index.html">
+                    <i class="fas fa-scissors me-2"
+                        aria-hidden="true"></i>
+                    Barber Studio
+                </a>
+
+                <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar"
+                    aria-expanded="false"
+                    aria-label="Toggle Navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+                <div class="collapse navbar-collapse"
+                    id="mainNavbar">
+
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                        <li class="nav-item">
+                            <a class="nav-link active"
+                                href="index.html">
+                                Home
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="about.html">
+                                About
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="services.html">
+                                Services
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="gallery.html">
+                                Gallery
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="pricing.html">
+                                Pricing
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="blog.html">
+                                Blog
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="contact.html">
+                                Contact
+                            </a>
+                        </li>
+
+                        <!-- Theme Toggle -->
+
+                        <li class="nav-item ms-lg-3">
+
+                            <button id="themeToggle"
+                                class="btn btn-barber"
+                                aria-label="Toggle Dark Light Mode">
+
+                                <i class="fas fa-sun"></i>
+
+                            </button>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </nav>
+   
+    </header>
+
+
+    <main id="mainContent">
+
+        <!-- ==========================================
+             PAGE BANNER
+        =========================================== -->
+
+        <section class="page-banner blog-banner">
+
+            <div class="container">
+
+                <h1>Latest Articles</h1>
+
+                <p>
+                    Grooming advice, hairstyle trends,
+                    beard care tips, and industry insights.
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- ==========================================
+             SEARCH BAR
+        =========================================== -->
+
+        <section class="section-padding pb-0">
+
+            <div class="container">
+
+                <div class="blog-search">
+
+                    <form action="#">
+
+                        <div class="input-group">
+
+                            <input
+                                type="search"
+                                class="form-control"
+                                placeholder="Search articles...">
+
+                            <button
+                                class="btn btn-barber"
+                                type="submit">
+
+                                <i class="fas fa-search"></i>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="blog-filters">
+
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="haircuts">Haircuts</button>
+                    <button class="filter-btn" data-filter="beard-care">Beard Care</button>
+                    <button class="filter-btn" data-filter="shaving">Shaving</button>
+                    <button class="filter-btn" data-filter="hair-care">Hair Care</button>
+                    <button class="filter-btn" data-filter="barbering">Barbering</button>
+                    <button class="filter-btn" data-filter="trends">Trends</button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ==========================================
+             BLOG POSTS
+        =========================================== -->
+
+        <section class="section-padding">
+
+            <div class="container">
+
+                <div class="row g-4">
+
+                    <!-- Post 1 -->
+
+                    <div class="col-lg-4 col-md-6 blog-item" data-category="haircuts">
+
+                        <article class="blog-card">
+
+                            <img
+                                src="https://images.pexels.com/photos/3998414/pexels-photo-3998414.jpeg?auto=compress&cs=tinysrgb&w=900"
+                                alt="Modern Fade Haircut Trends">
+
+                            <div class="blog-content">
+
+                                <span class="blog-category">
+
+                                    Haircuts
+
+                                </span>
+
+                                <h3>
+
+                                    Top Fade Haircut Trends
+                                    For Modern Gentlemen
+
+                                </h3>
+
+                                <div class="blog-meta">
+
+                                    <span>
+
+                                        <i class="fas fa-user"></i>
+                                        Admin
+
+                                    </span>
+
+                                    <span>
+
+                                        <i class="fas fa-calendar"></i>
+                                        Jan 15, 2026
+
+                                    </span>
+
+                                </div>
+
+                                <p>
+
+                                    Explore the most popular fade
+                                    haircut styles dominating
+                                    men's fashion this year.
+
+                                </p>
+
+                                <a href="blog-single.html?post=fade-haircut-trends"
+                                    class="btn btn-outline-barber">
+
+                                    Read More
+
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- Post 2 -->
+
+                    <div class="col-lg-4 col-md-6 blog-item" data-category="beard-care">
+
+                        <article class="blog-card">
+
+                            <img
+                                src="https://images.pexels.com/photos/5853394/pexels-photo-5853394.jpeg?auto=compress&cs=tinysrgb&w=900"
+                                alt="Beard Grooming Tips">
+
+                            <div class="blog-content">
+
+                                <span class="blog-category">
+
+                                    Beard Care
+
+                                </span>
+
+                                <h3>
+
+                                    Essential Beard Grooming
+                                    Tips For Every Man
+
+                                </h3>
+
+                                <div class="blog-meta">
+
+                                    <span>
+
+                                        <i class="fas fa-user"></i>
+                                        Admin
+
+                                    </span>
+
+                                    <span>
+
+                                        <i class="fas fa-calendar"></i>
+                                        Jan 10, 2026
+
+                                    </span>
+
+                                </div>
+
+                                <p>
+
+                                    Learn professional techniques
+                                    to maintain a healthy and
+                                    stylish beard.
+
+                                </p>
+
+                                <a href="blog-single.html?post=beard-grooming-tips"
+                                    class="btn btn-outline-barber">
+
+                                    Read More
+
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- Post 3 -->
+
+                    <div class="col-lg-4 col-md-6 blog-item" data-category="shaving">
+
+                        <article class="blog-card">
+
+                            <img
+                                src="https://images.pexels.com/photos/7447145/pexels-photo-7447145.jpeg?auto=compress&cs=tinysrgb&w=900"
+                                alt="Luxury Shaving Guide">
+
+                            <div class="blog-content">
+
+                                <span class="blog-category">
+
+                                    Shaving
+
+                                </span>
+
+                                <h3>
+
+                                    The Complete Guide To
+                                    Traditional Wet Shaving
+
+                                </h3>
+
+                                <div class="blog-meta">
+
+                                    <span>
+
+                                        <i class="fas fa-user"></i>
+                                        Admin
+
+                                    </span>
+
+                                    <span>
+
+                                        <i class="fas fa-calendar"></i>
+                                        Jan 05, 2026
+
+                                    </span>
+
+                                </div>
+
+                                <p>
+
+                                    Discover why traditional
+                                    shaving remains a timeless
+                                    grooming ritual.
+
+                                </p>
+
+                                <a href="blog-single.html?post=traditional-wet-shaving"
+                                    class="btn btn-outline-barber">
+
+                                    Read More
+
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- Post 4 -->
+
+                    <div class="col-lg-4 col-md-6 blog-item" data-category="hair-care">
+
+                        <article class="blog-card">
+
+                            <img
+                                src="https://images.pexels.com/photos/10003357/pexels-photo-10003357.jpeg?auto=compress&cs=tinysrgb&w=900"
+                                alt="Hair Care Guide">
+
+                            <div class="blog-content">
+
+                                <span class="blog-category">
+
+                                    Hair Care
+
+                                </span>
+
+                                <h3>
+
+                                    Professional Hair Care
+                                    Routine For Men
+
+                                </h3>
+
+                                <div class="blog-meta">
+
+                                    <span><i class="fas fa-user"></i> Admin</span>
+                                    <span><i class="fas fa-calendar"></i> Dec 28, 2025</span>
+
+                                </div>
+
+                                <p>
+
+                                    Maintain healthy hair with
+                                    expert recommendations and products.
+
+                                </p>
+
+                                <a href="blog-single.html?post=hair-care-routine"
+                                    class="btn btn-outline-barber">
+
+                                    Read More
+
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- Post 5 -->
+
+                    <div class="col-lg-4 col-md-6 blog-item" data-category="barbering">
+
+                        <article class="blog-card">
+
+                            <img
+                                src="https://images.pexels.com/photos/9992820/pexels-photo-9992820.jpeg?auto=compress&cs=tinysrgb&w=900"
+                                alt="Barber Tools">
+
+                            <div class="blog-content">
+
+                                <span class="blog-category">
+
+                                    Barbering
+
+                                </span>
+
+                                <h3>
+
+                                    Essential Barber Tools
+                                    Explained
+
+                                </h3>
+
+                                <div class="blog-meta">
+
+                                    <span><i class="fas fa-user"></i> Admin</span>
+                                    <span><i class="fas fa-calendar"></i> Dec 20, 2025</span>
+
+                                </div>
+
+                                <p>
+
+                                    Understanding the tools
+                                    professionals use every day.
+
+                                </p>
+
+                                <a href="blog-single.html?post=barber-tools"
+                                    class="btn btn-outline-barber">
+
+                                    Read More
+
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- Post 6 -->
+
+                    <div class="col-lg-4 col-md-6 blog-item" data-category="trends">
+
+                        <article class="blog-card">
+
+                            <img
+                                src="https://images.pexels.com/photos/3998427/pexels-photo-3998427.jpeg?auto=compress&cs=tinysrgb&w=900"
+                                alt="Men's Hairstyle Trends">
+
+                            <div class="blog-content">
+
+                                <span class="blog-category">
+
+                                    Trends
+
+                                </span>
+
+                                <h3>
+
+                                    Men's Hairstyle Trends
+                                    To Watch This Year
+
+                                </h3>
+
+                                <div class="blog-meta">
+
+                                    <span><i class="fas fa-user"></i> Admin</span>
+                                    <span><i class="fas fa-calendar"></i> Dec 15, 2025</span>
+
+                                </div>
+
+                                <p>
+
+                                    Stay ahead with the latest
+                                    hairstyle inspirations.
+
+                                </p>
+
+                                <a href="blog-single.html?post=mens-hairstyle-trends"
+                                    class="btn btn-outline-barber">
+
+                                    Read More
+
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+                <!-- Pagination -->
+                <nav class="mt-5" aria-label="Blog Pagination">
+                    <ul class="pagination justify-content-center" id="blogPagination">
+                        <li class="page-item disabled" data-nav="prev">
+                            <a class="page-link" href="#" onclick="return changeBlogPage(currentBlogPage-1);">Previous</a>
+                        </li>
+                        <li class="page-item active" data-page="1">
+                            <a class="page-link" href="#" onclick="return changeBlogPage(1);">1</a>
+                        </li>
+                        <li class="page-item" data-page="2">
+                            <a class="page-link" href="#" onclick="return changeBlogPage(2);">2</a>
+                        </li>
+                        <li class="page-item coming-soon" data-page="3" aria-label="Page 3 - Coming Soon">
+                            <a class="page-link" href="#" onclick="return false;">3
+                                <span class="coming-soon-tooltip">Coming Soon</span>
+                            </a>
+                        </li>
+                        <li class="page-item" data-nav="next">
+                            <a class="page-link" href="#" onclick="return changeBlogPage(currentBlogPage+1);">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+
+        </section>
+
+    </main>
+     <footer class="footer">
+
+            <div class="container">
+
+                <div class="row g-4">
+
+                    <!-- Company Info -->
+
+                    <div class="col-md-6 col-lg-3">
+
+                        <h5>The Barber Studio</h5>
+
+                        <p>
+                            Premium men's grooming destination
+                            specializing in precision haircuts,
+                            beard care, and luxury barbering
+                            services.
+                        </p>
+
+                        <div class="social-links">
+
+                            <a href="#"
+                                aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+
+                            <a href="#"
+                                aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+
+                            <a href="#"
+                                aria-label="Twitter">
+                                <i class="fab fa-x-twitter"></i>
+                            </a>
+
+                            <a href="#"
+                                aria-label="YouTube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Quick Links -->
+
+                    <div class="col-md-6 col-lg-3">
+
+                        <h5>Quick Links</h5>
+
+                        <ul>
+
+                            <li>
+                                <a href="index.html">
+                                    Home
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="about.html">
+                                    About Us
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="services.html">
+                                    Services
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="gallery.html">
+                                    Gallery
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="pricing.html">
+                                    Pricing
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="blog.html">
+                                    Blog
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="contact.html">
+                                    Contact
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <!-- Services -->
+
+                    <div class="col-md-6 col-lg-3">
+
+                        <h5>Our Services</h5>
+
+                        <ul>
+
+                            <li>
+                                <a href="service-details.html?service=precision-haircut">
+                                    Precision Haircuts
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="service-details.html?service=beard-grooming">
+                                    Beard Grooming
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="service-details.html?service=hot-towel-shave">
+                                    Hot Towel Shave
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="service-details.html?service=hair-coloring">
+                                    Hair Coloring
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="service-details.html?service=hair-styling">
+                                    Styling Consultation
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="service-details.html?service=vip-membership">
+                                    Membership Plans
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <!-- Contact Information -->
+
+                    <div class="col-md-6 col-lg-3">
+
+                        <h5>Contact Info</h5>
+
+                        <ul>
+
+                            <li>
+                                <i class="fas fa-location-dot me-2"></i>
+                                123 Ajmera,
+                                Pune, IN
+                            </li>
+
+                            <li>
+                                <i class="fas fa-phone me-2"></i>
+                                +91 (000) 000-0000
+                            </li>
+
+                            <li>
+                                <i class="fas fa-envelope me-2"></i>
+                                info@barberstudio.com
+                            </li>
+
+                            <li>
+                                <i class="fas fa-clock me-2"></i>
+                                Mon - Sun:
+                                09:00 AM - 08:00 PM
+                            </li>
+
+                        </ul>
+
+                        <!-- Newsletter Placeholder -->
+
+                        <form class="newsletter-form" novalidate>
+
+                            <div class="input-group">
+
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    placeholder="Your Email"
+                                    aria-label="Email Address"
+                                    required>
+
+                                <button
+                                    class="btn btn-barber"
+                                    type="submit">
+
+                                    Subscribe
+
+                                </button>
+
+                            </div>
+
+                            <div class="newsletter-feedback"></div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <!-- Footer Bottom -->
+
+                <div class="footer-bottom">
+
+                    <p class="mb-0">
+
+                        © 2026 The Barber Studio.
+                        All Rights Reserved.
+
+                    </p>
+
+                </div>
+
+            </div>
+                    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <script src="../assets/js/main.js"></script>
+
+
+<style>
+  .pagination .page-link{background:#121212;color:#FFFFFF;border:1px solid #2C2C2C;margin:0 4px;border-radius:6px;transition:all .25s ease;}
+  .pagination .page-link:hover{background:#2C2C2C;color:#D4AF37;border-color:#D4AF37;}
+  .pagination .page-item.active .page-link{background:#D4AF37;color:#121212;border-color:#D4AF37;font-weight:600;}
+  .pagination .page-item.disabled .page-link{background:#121212;color:#888;border-color:#2C2C2C;opacity:.6;cursor:not-allowed;}
+</style>
+<style>
+  .pagination .coming-soon{position:relative;}
+  .pagination .coming-soon .page-link{cursor:not-allowed;opacity:.85;}
+  .pagination .coming-soon .page-link:hover{background:#121212;color:#FFFFFF;border-color:#2C2C2C;}
+  .pagination .coming-soon .coming-soon-tooltip{
+    position:absolute;
+    bottom:calc(100% + 8px);
+    left:50%;
+    transform:translateX(-50%);
+    background:#D4AF37;
+    color:#121212;
+    padding:4px 10px;
+    border-radius:6px;
+    font-size:.75rem;
+    font-weight:600;
+    white-space:nowrap;
+    opacity:0;
+    visibility:hidden;
+    transition:all .25s ease;
+    pointer-events:none;
+    box-shadow:0 4px 12px rgba(0,0,0,.25);
+  }
+  .pagination .coming-soon .coming-soon-tooltip::after{
+    content:'';
+    position:absolute;
+    top:100%;
+    left:50%;
+    transform:translateX(-50%);
+    border-width:5px;
+    border-style:solid;
+    border-color:#D4AF37 transparent transparent transparent;
+  }
+  .pagination .coming-soon:hover .coming-soon-tooltip,
+  .pagination .coming-soon:focus-within .coming-soon-tooltip{
+    opacity:1;
+    visibility:visible;
+    bottom:calc(100% + 12px);
+  }
+</style>
+<script>
+  var currentBlogPage = 1;
+  var blogPerPage = 3;
+  function changeBlogPage(page){
+    var items = document.querySelectorAll('.blog-item');
+    var totalPages = Math.ceil(items.length / blogPerPage);
+    if(page < 1 || page > totalPages) return false;
+    currentBlogPage = page;
+    items.forEach(function(el, i){
+      var pg = Math.floor(i / blogPerPage) + 1;
+      el.style.display = (pg === page) ? '' : 'none';
+    });
+    document.querySelectorAll('#blogPagination [data-page]').forEach(function(li){
+      li.classList.toggle('active', parseInt(li.dataset.page,10) === page);
+    });
+    var prev = document.querySelector('#blogPagination [data-nav="prev"]');
+    var next = document.querySelector('#blogPagination [data-nav="next"]');
+    if(prev) prev.classList.toggle('disabled', page === 1);
+    if(next) next.classList.toggle('disabled', page === totalPages);
+    var grid = document.querySelector('.blog-item');
+    if(grid && grid.parentElement){ grid.parentElement.scrollIntoView({behavior:'smooth', block:'start'}); }
+    return false;
+  }
+  document.addEventListener('DOMContentLoaded', function(){ changeBlogPage(1); });
+</script>
+
+</body>
+
+</html>

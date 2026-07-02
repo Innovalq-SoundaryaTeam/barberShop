@@ -1,0 +1,306 @@
+
+
+body.light-mode {
+    --color-bg: #f8f9fa;
+    --color-text: #212529;
+    --color-card: #ffffff;
+    --color-border: rgba(0, 0, 0, 0.12);
+
+    background: var(--color-bg);
+    color: var(--color-text);
+}
+
+/* ==================================================
+   GLOBAL LIGHT MODE
+   ================================================== */
+
+body.light-mode p,
+body.light-mode li,
+body.light-mode span,
+body.light-mode label,
+body.light-mode small {
+    color: var(--color-text);
+}
+
+body.light-mode h1,
+body.light-mode h2,
+body.light-mode h3,
+body.light-mode h4,
+body.light-mode h5,
+body.light-mode h6 {
+    color: #111111;
+}
+
+/* ==================================================
+   NAVBAR
+   ================================================== */
+
+body.light-mode .navbar {
+    background: rgba(255,255,255,.95);
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+
+body.light-mode .navbar-brand {
+    color: var(--color-primary) !important;
+}
+
+body.light-mode .nav-link {
+    color: #111111 !important;
+}
+
+body.light-mode .nav-link:hover {
+    color: var(--color-primary) !important;
+}
+
+/* ==================================================
+   HERO
+   ================================================== */
+
+body.light-mode .hero-overlay {
+    background: rgba(255,255,255,.45);
+}
+
+body.light-mode .hero-content h1 {
+    color: var(--color-primary);
+}
+
+body.light-mode .hero-content p {
+    color: #222222;
+}
+
+/* ==================================================
+   CARDS
+   ================================================== */
+
+body.light-mode .card-dark,
+body.light-mode .service-card,
+body.light-mode .barber-card,
+body.light-mode .pricing-card,
+body.light-mode .blog-card,
+body.light-mode .testimonial-card {
+    background: var(--color-card);
+    color: var(--color-text);
+    border: 1px solid rgba(0,0,0,.08);
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+
+body.light-mode .card-dark:hover,
+body.light-mode .service-card:hover,
+body.light-mode .barber-card:hover,
+body.light-mode .pricing-card:hover,
+body.light-mode .blog-card:hover {
+    border-color: var(--color-primary);
+}
+
+/* ==================================================
+   PAGE BANNERS
+   ================================================== */
+
+body.light-mode .page-banner {
+    background:
+        linear-gradient(
+            rgba(255,255,255,.85),
+            rgba(255,255,255,.85)
+        );
+}
+
+body.light-mode .page-banner h1,
+body.light-mode .page-banner p {
+    color: #111111;
+}
+
+/* ==================================================
+   CTA BANNER
+   ================================================== */
+
+body.light-mode .cta-banner {
+    color: #111111;
+}
+
+/* ==================================================
+   BUTTONS
+   ================================================== */
+
+body.light-mode .btn-outline-barber {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+body.light-mode .btn-outline-barber:hover {
+    color: #000000;
+}
+
+/* ==================================================
+   FORMS
+   ================================================== */
+
+body.light-mode .form-control,
+body.light-mode .form-select,
+body.light-mode textarea {
+    background: #ffffff;
+    color: #111111;
+    border: 1px solid #d6d6d6;
+}
+
+body.light-mode .form-control::placeholder,
+body.light-mode textarea::placeholder {
+    color: #6c757d;
+}
+
+body.light-mode .form-control:focus,
+body.light-mode .form-select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 .15rem rgba(201,168,76,.25);
+}
+
+/* ==================================================
+   TABLES
+   ================================================== */
+
+body.light-mode .table-dark-custom {
+    background: #ffffff;
+    color: #111111;
+}
+
+body.light-mode .table-dark-custom th {
+    color: var(--color-primary);
+}
+
+body.light-mode .table-dark-custom td {
+    border-color: rgba(0,0,0,.08);
+}
+
+/* ==================================================
+   ACCORDIONS
+   ================================================== */
+
+body.light-mode .accordion-item {
+    background: #ffffff;
+    border-color: rgba(0,0,0,.12);
+}
+
+body.light-mode .accordion-button {
+    background: #ffffff;
+    color: #111111;
+}
+
+body.light-mode .accordion-button:not(.collapsed) {
+    background: rgba(201,168,76,.10);
+    color: var(--color-primary);
+}
+
+body.light-mode .accordion-body {
+    color: #212529;
+}
+
+/* ==================================================
+   BLOG SIDEBAR
+   ================================================== */
+
+body.light-mode .sidebar-widget {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,.08);
+    color: #111111;
+}
+
+/* ==================================================
+   FOOTER
+   ================================================== */
+
+body.light-mode .footer {
+    background: #e9ecef;
+}
+
+body.light-mode .footer h5 {
+    color: var(--color-primary);
+}
+
+body.light-mode .footer p,
+body.light-mode .footer li,
+body.light-mode .footer a {
+    color: #212529;
+}
+
+body.light-mode .footer-bottom {
+    border-top: 1px solid rgba(0,0,0,.12);
+}
+
+/* ==================================================
+   SOCIAL ICONS
+   ================================================== */
+
+body.light-mode .social-links a {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,.08);
+    color: #111111;
+}
+
+body.light-mode .social-links a:hover {
+    background: var(--color-primary);
+    color: #000000;
+}
+
+/* ==================================================
+   GALLERY FILTERS
+   ================================================== */
+
+body.light-mode .filter-btn {
+    background: #ffffff;
+    color: #111111;
+    border: 1px solid rgba(0,0,0,.12);
+}
+
+body.light-mode .filter-btn.active,
+body.light-mode .filter-btn:hover {
+    background: var(--color-primary);
+    color: #000000;
+}
+
+/* ==================================================
+   ERROR PAGE
+   ================================================== */
+
+body.light-mode .error-code {
+    color: var(--color-primary);
+}
+
+/* ==================================================
+   COMING SOON
+   ================================================== */
+
+body.light-mode .countdown-box {
+    background: #ffffff;
+    color: #111111;
+    border: 1px solid rgba(0,0,0,.08);
+}
+
+/* ==================================================
+   ACCESSIBILITY
+   ================================================== */
+
+body.light-mode a:focus,
+body.light-mode button:focus,
+body.light-mode input:focus,
+body.light-mode textarea:focus,
+body.light-mode select:focus {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+/* ==================================================
+   TRANSITIONS
+   ================================================== */
+
+body,
+.navbar,
+.card-dark,
+.service-card,
+.barber-card,
+.blog-card,
+.pricing-card,
+.footer,
+.form-control,
+.form-select,
+.page-banner {
+    transition: all 0.3s ease;
+}
