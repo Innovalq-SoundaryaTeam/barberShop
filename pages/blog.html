@@ -913,7 +913,19 @@
     if(grid && grid.parentElement){ grid.parentElement.scrollIntoView({behavior:'smooth', block:'start'}); }
     return false;
   }
-  document.addEventListener('DOMContentLoaded', function(){ changeBlogPage(1); });
+  document.addEventListener('DOMContentLoaded', function(){
+    // Auto-apply ?cat= filter from URL param (from category/tag links on blog-single.html)
+    var cat = new URLSearchParams(window.location.search).get('cat');
+    if (cat) {
+      var btn = document.querySelector('.blog-filters .filter-btn[data-filter="' + cat + '"]');
+      if (btn) {
+        btn.click();
+        setTimeout(function(){ btn.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 100);
+        return; // skip default pagination when filtering
+      }
+    }
+    changeBlogPage(1);
+  });
 </script>
 
 </body>
