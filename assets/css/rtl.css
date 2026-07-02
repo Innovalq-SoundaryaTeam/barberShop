@@ -234,14 +234,14 @@ html[dir="rtl"] iframe {
 }
 
 /* ==================================================
-   FLEX UTILITIES
+   FLEX UTILITIES — targeted only (global .d-flex reversal breaks Bootstrap)
    ================================================== */
 
-html[dir="rtl"] .d-flex {
+html[dir="rtl"] .navbar-nav {
     flex-direction: row-reverse;
 }
 
-html[dir="rtl"] .justify-content-between {
+html[dir="rtl"] .footer-bottom {
     flex-direction: row-reverse;
 }
 
@@ -278,11 +278,65 @@ html[dir="rtl"] .me-5 {
 }
 
 /* ==================================================
-   BOOTSTRAP GRID FIXES
+   BOOTSTRAP GRID — direction:rtl on <html> handles column flow automatically
    ================================================== */
 
-html[dir="rtl"] .row {
-    flex-direction: row-reverse;
+/* ==================================================
+   BARBER SHOP SPECIFIC COMPONENTS
+   ================================================== */
+
+/* Service / blog card arrows */
+html[dir="rtl"] .btn-barber i,
+html[dir="rtl"] .learn-more i,
+html[dir="rtl"] .card-link i {
+    transform: scaleX(-1);
+    display: inline-block;
+}
+
+/* Blog sidebar category links */
+html[dir="rtl"] .sidebar-widget a {
+    text-align: right;
+    display: block;
+}
+
+/* Filter buttons row */
+html[dir="rtl"] .blog-filters,
+html[dir="rtl"] .gallery-filters,
+html[dir="rtl"] .filter-tabs {
+    direction: rtl;
+}
+
+/* Dropdown menus */
+html[dir="rtl"] .dropdown-menu {
+    text-align: right;
+    right: 0;
+    left: auto;
+}
+
+html[dir="rtl"] .dropdown-item {
+    text-align: right;
+}
+
+/* Back to top */
+html[dir="rtl"] .back-to-top {
+    right: auto;
+    left: 30px;
+}
+
+/* Breadcrumbs — fix separator direction */
+html[dir="rtl"] .breadcrumb-item + .breadcrumb-item {
+    padding-left: 0;
+    padding-right: 0.5rem;
+}
+
+/* Footer social icons row */
+html[dir="rtl"] .social-links {
+    direction: rtl;
+}
+
+/* RTL toggle button */
+html[dir="rtl"] #rtlToggle .rtl-toggle-label {
+    font-weight: 700;
 }
 
 /* ==================================================
@@ -305,5 +359,10 @@ html[dir="rtl"] .row {
 
     html[dir="rtl"] .cta-banner {
         text-align: center;
+    }
+
+    html[dir="rtl"] .back-to-top {
+        left: 20px;
+        right: auto;
     }
 }
