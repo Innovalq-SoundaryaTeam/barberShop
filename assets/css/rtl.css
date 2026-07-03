@@ -365,10 +365,6 @@ html[dir="rtl"] #rtlToggle .rtl-toggle-label {
         left: 20px;
         right: auto;
     }
-
-    html[dir="rtl"] .navbar-collapse {
-        text-align: left;
-    }
 }
 
 /* ==================================================
@@ -383,11 +379,7 @@ html[dir="rtl"] #rtlToggle .rtl-toggle-label {
 html[dir="rtl"] .navbar,
 html[dir="rtl"] .navbar .container,
 html[dir="rtl"] .navbar-brand,
-html[dir="rtl"] .navbar-toggler,
-html[dir="rtl"] .navbar-collapse,
-html[dir="rtl"] .navbar-nav,
-html[dir="rtl"] .navbar-nav .nav-link,
-html[dir="rtl"] .navbar-nav .dropdown-menu {
+html[dir="rtl"] .navbar-toggler {
     direction: ltr;
     text-align: left;
 }
@@ -413,8 +405,26 @@ html[dir="rtl"] .navbar .ms-auto {
     margin-right: 0 !important;
 }
 
+/* Desktop: nav links stay left-to-right, matching the logo/toggler */
+@media (min-width: 992px) {
+    html[dir="rtl"] .navbar-nav .nav-link,
+    html[dir="rtl"] .navbar-nav .dropdown-menu {
+        direction: ltr;
+        text-align: left;
+    }
+}
+
+/* Mobile: keep the menu's item order and the logo/hamburger fixed,
+   but let each link's text align right so RTL is still visible
+   when the collapsed menu is opened */
 @media (max-width: 991.98px) {
     html[dir="rtl"] .navbar-nav {
         flex-direction: column;
+    }
+
+    html[dir="rtl"] .navbar-collapse,
+    html[dir="rtl"] .navbar-nav .nav-link {
+        direction: rtl;
+        text-align: right;
     }
 }
