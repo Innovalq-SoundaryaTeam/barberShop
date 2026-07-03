@@ -365,4 +365,56 @@ html[dir="rtl"] #rtlToggle .rtl-toggle-label {
         left: 20px;
         right: auto;
     }
+
+    html[dir="rtl"] .navbar-collapse {
+        text-align: left;
+    }
+}
+
+/* ==================================================
+   NAVBAR STABILITY OVERRIDE
+   The navbar's own layout (logo left, links/toggler
+   right, collapsed menu order) should never change
+   when RTL is toggled — only the page content flips.
+   Placed last so it wins over the earlier navbar
+   rules above regardless of screen size.
+   ================================================== */
+
+html[dir="rtl"] .navbar,
+html[dir="rtl"] .navbar .container,
+html[dir="rtl"] .navbar-brand,
+html[dir="rtl"] .navbar-toggler,
+html[dir="rtl"] .navbar-collapse,
+html[dir="rtl"] .navbar-nav,
+html[dir="rtl"] .navbar-nav .nav-link,
+html[dir="rtl"] .navbar-nav .dropdown-menu {
+    direction: ltr;
+    text-align: left;
+}
+
+html[dir="rtl"] .navbar-nav {
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+html[dir="rtl"] .navbar-brand {
+    margin-right: 1rem;
+    margin-left: 0;
+}
+
+html[dir="rtl"] .navbar-toggler {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+html[dir="rtl"] .navbar .ms-auto {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+@media (max-width: 991.98px) {
+    html[dir="rtl"] .navbar-nav {
+        flex-direction: column;
+    }
 }
