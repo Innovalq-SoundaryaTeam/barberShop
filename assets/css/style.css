@@ -881,10 +881,9 @@ select:focus {
         width: 100%;
     }
 
-    /* Navbar utility buttons (theme + RTL toggle) should stay compact,
+    /* Navbar theme toggle button should stay compact,
        not stretch full-width like the hero/CTA buttons above */
-    #themeToggle,
-    #rtlToggle {
+    #themeToggle {
         width: auto;
         display: inline-flex;
         align-items: center;
@@ -897,11 +896,45 @@ select:focus {
     }
 }
 
-@media (max-width: 991.98px) {
-    /* Put the RTL toggle first in the collapsed mobile menu,
-       above Home, instead of buried near the bottom */
-    .rtl-toggle-item {
-        order: -1;
+/* ==================================================
+   RTL FLOATING TOGGLE
+   Standalone button fixed to the viewport, independent
+   of the navbar, visible on every screen size.
+   ================================================== */
+.rtl-floating-toggle {
+    position: fixed;
+    top: 90px;
+    right: 16px;
+    z-index: 1040;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 50px;
+    border: 2px solid var(--color-primary);
+    background: rgba(0,0,0,.85);
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: .85rem;
+    box-shadow: var(--shadow-md, 0 6px 18px rgba(0,0,0,.35));
+    transition: var(--transition);
+}
+
+.rtl-floating-toggle:hover {
+    background: var(--color-primary);
+    color: #000;
+}
+
+body.light-mode .rtl-floating-toggle {
+    background: rgba(255,255,255,.9);
+}
+
+@media (max-width: 480px) {
+    .rtl-floating-toggle {
+        top: 78px;
+        right: 10px;
+        padding: 6px 10px;
+        font-size: .78rem;
     }
 }
 

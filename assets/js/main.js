@@ -123,28 +123,22 @@ const injectAccountNav = () => {
 
 const initializeRTLToggle = () => {
 
-    const navList = document.querySelector('#mainNavbar .navbar-nav');
-
-    if (!navList) return;
-
     if (document.getElementById('rtlToggle')) return;
 
-    const themeItem = navList.querySelector('.ms-lg-3');
+    // Standalone floating button, fixed to the corner of the viewport.
+    // Deliberately kept OUT of the navbar so it never touches/alters
+    // the navbar's own layout on any screen size.
+    const button = document.createElement('button');
+    button.id = 'rtlToggle';
+    button.type = 'button';
+    button.className = 'rtl-floating-toggle';
+    button.setAttribute('aria-label', 'Toggle Right-To-Left Layout');
+    button.setAttribute('title', 'Switch Layout Direction');
+    button.innerHTML =
+        '<i class="fas fa-globe"></i><span class="rtl-toggle-label">EN</span>';
 
-    const li = document.createElement('li');
-    li.className = 'nav-item ms-lg-3 rtl-toggle-item';
-    li.innerHTML =
-        '<button id="rtlToggle" type="button" class="btn btn-outline-barber" ' +
-        'aria-label="Toggle Right-To-Left Layout" title="Switch Layout Direction">' +
-        '<i class="fas fa-globe me-1"></i><span class="rtl-toggle-label">EN</span></button>';
+    document.body.appendChild(button);
 
-    if (themeItem) {
-        navList.insertBefore(li, themeItem);
-    } else {
-        navList.appendChild(li);
-    }
-
-    const button = document.getElementById('rtlToggle');
     const label = button.querySelector('.rtl-toggle-label');
 
     const applyDirection = (dir) => {
