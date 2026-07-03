@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initTableSearch();
     initDeleteButtons();
     initViewEditActions();
+    initAdminFormToasts();
 
 });
 
@@ -341,6 +342,8 @@ const openRecordModal = (btn, mode) => {
             const instance = window.bootstrap && bootstrap.Modal.getInstance(modalEl);
             if (instance) instance.hide();
 
+            showAdminToast('Changes saved successfully!');
+
         }, { once: true });
 
     }
@@ -354,5 +357,93 @@ const openRecordModal = (btn, mode) => {
         : new bootstrap.Modal(modalEl);
 
     bsModal.show();
+
+};
+
+/* ==========================================
+   SUCCESS TOAST (generic, reused by every
+   "Save" / "Update" action across the admin panel)
+========================================== */
+const showAdminToast = (message) => {
+
+    let toast = document.getElementById('adminToast');
+
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'adminToast';
+        toast.className = 'admin-toast';
+        toast.innerHTML = '<i class="fas fa-circle-check"></i><span></span>';
+        const mount = document.querySelector('.admin-wrapper') || document.body;
+        mount.appendChild(toast);
+    }
+
+    toast.querySelector('span').textContent = message;
+
+    toast.classList.remove('show');
+    void toast.offsetWidth; // restart the transition if triggered again quickly
+    toast.classList.add('show');
+
+    clearTimeout(showAdminToast._timer);
+    showAdminToast._timer = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2600);
+
+};
+
+const buildSaveMessage = (btn) => {
+
+    if (!btn) return 'Saved successfully!';
+
+    const label = btn.textContent.trim().replace(/\s+/g, ' ');
+
+    if (/password/i.test(label)) return 'Password updated successfully!';
+    if (/preference/i.test(label)) return 'Preferences saved successfully!';
+    if (/staff/i.test(label)) return 'Staff member saved successfully!';
+    if (/service/i.test(label)) return 'Service saved successfully!';
+
+    return 'Changes saved successfully!';
+
+};
+
+/* ==========================================
+   FORM / SAVE BUTTON TOASTS
+   Covers: Settings tabs (Profile, Salon Info,
+   Security), modal "Save" buttons (Add Staff,
+   Add Service), and the Notifications tab's
+   standalone Save Preferences button.
+========================================== */
+const initAdminFormToasts = () => {
+
+    // Any <form novalidate> submit inside the admin content area
+    document.addEventListener('submit', (e) => {
+
+        const form = e.target;
+        if (!form.closest('.admin-content')) return;
+
+        e.preventDefault();
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        showAdminToast(buildSaveMessage(submitBtn));
+
+    });
+
+    // Modal "Save" buttons (Add Staff / Add Service, etc.) — these
+    // dismiss their modal via data-bs-dismiss rather than submitting a form
+    document.addEventListener('click', (e) => {
+
+        const btn = e.target.closest('.btn-admin-primary[data-bs-dismiss="modal"]');
+        if (!btn || !btn.closest('.admin-content')) return;
+
+        showAdminToast(buildSaveMessage(btn));
+
+    });
+
+    // Notifications tab's standalone Save Preferences button
+    const savePrefsBtn = document.getElementById('savePreferencesBtn');
+    if (savePrefsBtn) {
+        savePrefsBtn.addEventListener('click', () => {
+            showAdminToast('Preferences saved successfully!');
+        });
+    }
 
 };
