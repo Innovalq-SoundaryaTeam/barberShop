@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initLogout();
     initTableSearch();
     initDeleteButtons();
+    initViewEditActions();
 
 });
 
@@ -162,3 +163,192 @@ document.querySelectorAll('.nav-pills-admin [data-filter]').forEach((pill) => {
     });
 
 });
+
+/* ==========================================
+   VIEW / EDIT ACTIONS (generic — table rows & entity cards)
+   Uses event delegation so it also works on rows/cards
+   inserted dynamically after page load.
+========================================== */
+const initViewEditActions = () => {
+
+    document.addEventListener('click', (e) => {
+
+        const viewBtn = e.target.closest('.btn-icon-action[title="View"]');
+        const editBtn = e.target.closest('.btn-icon-action[title="Edit"]');
+
+        if (viewBtn) {
+            openRecordModal(viewBtn, 'view');
+        } else if (editBtn) {
+            openRecordModal(editBtn, 'edit');
+        }
+
+    });
+
+};
+
+const getRecordFields = (btn) => {
+
+    const row = btn.closest('tr');
+    const card = !row && (btn.closest('.entity-card') || btn.closest('[data-search-item]'));
+    const fields = [];
+
+    if (row) {
+
+        const table = row.closest('table');
+        const headers = table
+            ? Array.from(table.querySelectorAll('thead th')).map((th) => th.textContent.trim())
+            : [];
+
+        Array.from(row.children).forEach((cell, index) => {
+
+            const label = headers[index] || ('Field ' + (index + 1));
+            if (label.toLowerCase() === 'actions') return;
+
+            const nameEl = cell.querySelector('.cell-title');
+            const subEl = cell.querySelector('.cell-sub');
+            const badgeEl = cell.querySelector('.badge-status');
+
+            if (nameEl && subEl) {
+                fields.push({ label: label + ' Name', value: nameEl.textContent.trim(), el: nameEl });
+                fields.push({ label: label + ' Detail', value: subEl.textContent.trim(), el: subEl });
+            } else if (badgeEl) {
+                fields.push({ label: label, value: badgeEl.textContent.trim(), el: badgeEl });
+            } else if (cell.children.length === 0) {
+                fields.push({ label: label, value: cell.textContent.trim(), el: cell });
+            } else {
+                fields.push({ label: label, value: cell.textContent.trim().replace(/\s+/g, ' '), el: null });
+            }
+
+        });
+
+    } else if (card) {
+
+        const heading = card.querySelector('h3, h4, h5');
+        const role = card.querySelector('.role');
+        const priceRow = card.querySelector('.entity-card-body .d-flex.justify-content-between');
+        const badge = card.querySelector('.badge-status');
+
+        if (heading) fields.push({ label: 'Name', value: heading.textContent.trim(), el: heading });
+        if (role) fields.push({ label: 'Category', value: role.textContent.trim(), el: role });
+
+        if (priceRow) {
+            const spans = Array.from(priceRow.children);
+            if (spans[0]) fields.push({ label: 'Price', value: spans[0].textContent.trim(), el: spans[0] });
+            if (spans[1]) fields.push({ label: 'Duration', value: spans[1].textContent.trim(), el: spans[1] });
+        }
+
+        if (badge) fields.push({ label: 'Status', value: badge.textContent.trim(), el: badge });
+
+    }
+
+    return fields;
+
+};
+
+const ensureRecordModal = () => {
+
+    if (document.getElementById('recordActionModal')) return;
+
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML =
+        '<div class="modal fade" id="recordActionModal" tabindex="-1" aria-hidden="true">' +
+            '<div class="modal-dialog modal-dialog-centered">' +
+                '<div class="modal-content">' +
+                    '<div class="modal-header">' +
+                        '<h5 class="modal-title" id="recordActionModalTitle">Details</h5>' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+                    '</div>' +
+                    '<div class="modal-body" id="recordActionModalBody"></div>' +
+                    '<div class="modal-footer" id="recordActionModalFooter"></div>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+
+    document.body.appendChild(wrapper.firstElementChild);
+
+};
+
+const openRecordModal = (btn, mode) => {
+
+    ensureRecordModal();
+
+    const fields = getRecordFields(btn);
+    const title = document.getElementById('recordActionModalTitle');
+    const body = document.getElementById('recordActionModalBody');
+    const footer = document.getElementById('recordActionModalFooter');
+
+    const recordName = fields.length ? fields[0].value : 'Record';
+    title.textContent = (mode === 'view' ? 'View Details — ' : 'Edit — ') + recordName;
+
+    if (mode === 'view') {
+
+        body.innerHTML = fields.map((f) =>
+            '<div class="mb-3">' +
+                '<label class="form-label">' + f.label + '</label>' +
+                '<div class="cell-title">' + (f.value || '—') + '</div>' +
+            '</div>'
+        ).join('');
+
+        footer.innerHTML =
+            '<button type="button" class="btn-admin-outline" data-bs-dismiss="modal">Close</button>';
+
+    } else {
+
+        body.innerHTML = fields.map((f, i) => {
+
+            if (!f.el) {
+                return '<div class="mb-3">' +
+                    '<label class="form-label">' + f.label + '</label>' +
+                    '<div class="cell-sub">' + (f.value || '—') + ' (not editable)</div>' +
+                '</div>';
+            }
+
+            const safeValue = (f.value || '').replace(/"/g, '&quot;');
+
+            return '<div class="mb-3">' +
+                '<label class="form-label">' + f.label + '</label>' +
+                '<input type="text" class="form-control" data-field-index="' + i + '" value="' + safeValue + '">' +
+            '</div>';
+
+        }).join('');
+
+        footer.innerHTML =
+            '<button type="button" class="btn-admin-outline" data-bs-dismiss="modal">Cancel</button>' +
+            '<button type="button" class="btn-admin-primary" id="recordActionSaveBtn">' +
+                '<i class="fas fa-check me-2"></i>Save Changes' +
+            '</button>';
+
+        const saveBtn = document.getElementById('recordActionSaveBtn');
+
+        saveBtn.addEventListener('click', () => {
+
+            body.querySelectorAll('input[data-field-index]').forEach((input) => {
+
+                const idx = Number(input.dataset.fieldIndex);
+                const field = fields[idx];
+
+                if (field && field.el) {
+                    field.el.textContent = input.value;
+                }
+
+            });
+
+            const modalEl = document.getElementById('recordActionModal');
+            const instance = window.bootstrap && bootstrap.Modal.getInstance(modalEl);
+            if (instance) instance.hide();
+
+        }, { once: true });
+
+    }
+
+    const modalEl = document.getElementById('recordActionModal');
+
+    if (!window.bootstrap) return;
+
+    const bsModal = bootstrap.Modal.getOrCreateInstance
+        ? bootstrap.Modal.getOrCreateInstance(modalEl)
+        : new bootstrap.Modal(modalEl);
+
+    bsModal.show();
+
+};
