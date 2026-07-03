@@ -125,6 +125,14 @@ const initializeRTLToggle = () => {
 
     if (document.getElementById('rtlToggle')) return;
 
+    // RTL is a demo feature for the public marketing pages only — those are
+    // the only pages that link rtl.css. Admin/auth pages (login, sign up,
+    // dashboard, etc.) don't load that stylesheet and their layouts (e.g.
+    // the two-column auth screens) were never built to support a live
+    // direction flip, so skip injecting the toggle there entirely rather
+    // than let it silently break those layouts.
+    if (!document.querySelector('link[href*="rtl.css"]')) return;
+
     // Standalone floating button, fixed to the corner of the viewport.
     // Deliberately kept OUT of the navbar so it never touches/alters
     // the navbar's own layout on any screen size.
