@@ -132,7 +132,7 @@ const initializeRTLToggle = () => {
     const themeItem = navList.querySelector('.ms-lg-3');
 
     const li = document.createElement('li');
-    li.className = 'nav-item ms-lg-3';
+    li.className = 'nav-item ms-lg-3 rtl-toggle-item';
     li.innerHTML =
         '<button id="rtlToggle" type="button" class="btn btn-outline-barber" ' +
         'aria-label="Toggle Right-To-Left Layout" title="Switch Layout Direction">' +

@@ -897,6 +897,14 @@ select:focus {
     }
 }
 
+@media (max-width: 991.98px) {
+    /* Put the RTL toggle first in the collapsed mobile menu,
+       above Home, instead of buried near the bottom */
+    .rtl-toggle-item {
+        order: -1;
+    }
+}
+
 
 /* ===== Lightbox ===== */
 
