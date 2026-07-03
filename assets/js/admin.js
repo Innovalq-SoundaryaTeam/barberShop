@@ -264,7 +264,11 @@ const ensureRecordModal = () => {
             '</div>' +
         '</div>';
 
-    document.body.appendChild(wrapper.firstElementChild);
+    // Append inside .admin-wrapper (not document.body) so the modal
+    // inherits the admin panel's dark-theme modal styling from admin.css,
+    // which is scoped to ".admin-wrapper .modal-content".
+    const mountPoint = document.querySelector('.admin-wrapper') || document.body;
+    mountPoint.appendChild(wrapper.firstElementChild);
 
 };
 
