@@ -340,6 +340,8 @@ const openRecordModal = (btn, mode) => {
 
     } else {
 
+        body.classList.remove('was-validated');
+
         body.innerHTML = fields.map((f, i) => {
 
             if (!f.el) {
@@ -359,9 +361,10 @@ const openRecordModal = (btn, mode) => {
 
                 return '<div class="mb-3">' +
                     '<label class="form-label">' + f.label + '</label>' +
-                    '<select class="form-select" data-field-index="' + i + '" data-status-field>' +
+                    '<select class="form-select" data-field-index="' + i + '" data-status-field required>' +
                         optionsHtml +
                     '</select>' +
+                    '<div class="invalid-feedback">Please choose a status.</div>' +
                 '</div>';
 
             }
@@ -370,7 +373,8 @@ const openRecordModal = (btn, mode) => {
 
             return '<div class="mb-3">' +
                 '<label class="form-label">' + f.label + '</label>' +
-                '<input type="text" class="form-control" data-field-index="' + i + '" value="' + safeValue + '">' +
+                '<input type="text" class="form-control" data-field-index="' + i + '" value="' + safeValue + '" required>' +
+                '<div class="invalid-feedback">This field can\'t be empty.</div>' +
             '</div>';
 
         }).join('');
@@ -384,6 +388,14 @@ const openRecordModal = (btn, mode) => {
         const saveBtn = document.getElementById('recordActionSaveBtn');
 
         saveBtn.addEventListener('click', () => {
+
+            const inputs = Array.from(body.querySelectorAll('[data-field-index]'));
+            const allValid = inputs.every((input) => input.checkValidity());
+
+            if (!allValid) {
+                body.classList.add('was-validated');
+                return;
+            }
 
             body.querySelectorAll('[data-field-index]').forEach((input) => {
 
