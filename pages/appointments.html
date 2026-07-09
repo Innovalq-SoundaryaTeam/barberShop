@@ -252,43 +252,50 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form novalidate>
+                            <form novalidate id="appointmentForm">
                                 <div class="mb-3">
                                     <label class="form-label">Customer Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter customer name">
+                                    <input type="text" class="form-control" name="customerName" placeholder="Enter customer name" required>
+                                    <div class="invalid-feedback">Please enter the customer's name.</div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Service</label>
-                                    <select class="form-select">
+                                    <select class="form-select" name="service" required>
+                                        <option value="" selected disabled>Select a service</option>
                                         <option>Premium Haircut</option>
                                         <option>Beard Grooming</option>
                                         <option>Hair Spa</option>
                                         <option>Hair Color</option>
                                     </select>
+                                    <div class="invalid-feedback">Please choose a service.</div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Staff</label>
-                                    <select class="form-select">
+                                    <select class="form-select" name="staff" required>
+                                        <option value="" selected disabled>Select a staff member</option>
                                         <option>Jason Miller</option>
                                         <option>David Lee</option>
                                         <option>Marcus Reid</option>
                                     </select>
+                                    <div class="invalid-feedback">Please assign a staff member.</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Date</label>
-                                        <input type="date" class="form-control">
+                                        <input type="date" class="form-control" name="date" required>
+                                        <div class="invalid-feedback">Please pick a date.</div>
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Time</label>
-                                        <input type="time" class="form-control">
+                                        <input type="time" class="form-control" name="time" required>
+                                        <div class="invalid-feedback">Please pick a time.</div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn-admin-outline" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn-admin-primary" data-bs-dismiss="modal">Book Appointment</button>
+                            <button type="button" class="btn-admin-primary" id="bookAppointmentBtn">Book Appointment</button>
                         </div>
                     </div>
                 </div>
@@ -386,21 +393,145 @@
 
         });
 
-        // Rewire delete buttons on the newly-added rows
-        tbody.querySelectorAll('[data-remove-row]').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                const target = btn.closest('tr');
-                if (target && window.confirm('Delete this record?')) {
-                    target.remove();
-                }
-            });
-        });
+        // Delete buttons are handled by a single event-delegated
+        // listener in admin.js, so newly-added rows work automatically.
 
         // Reflect real requests in the "Pending" stat card (3rd card)
         const pendingStat = document.querySelectorAll('.stat-card .stat-info h3')[2];
         if (pendingStat) {
             const base = parseInt(pendingStat.textContent, 10) || 0;
             pendingStat.textContent = base + inquiries.length;
+        }
+
+    })();
+</script>
+
+<script>
+    (function bookableAppointments() {
+
+        const BOOKINGS_KEY = 'bs_booked_appointments';
+        const form = document.getElementById('appointmentForm');
+        const bookBtn = document.getElementById('bookAppointmentBtn');
+        const tbody = document.querySelector('#appointmentsTable tbody');
+        const modalEl = document.getElementById('addAppointmentModal');
+
+        if (!form || !bookBtn || !tbody) return;
+
+        function getBookings() {
+            try {
+                return JSON.parse(localStorage.getItem(BOOKINGS_KEY)) || [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveBookings(bookings) {
+            try {
+                localStorage.setItem(BOOKINGS_KEY, JSON.stringify(bookings));
+            } catch (e) {}
+        }
+
+        function initials(name) {
+            return (name || '?')
+                .trim()
+                .split(/\s+/)
+                .map(function (part) { return part.charAt(0).toUpperCase(); })
+                .slice(0, 2)
+                .join('') || '?';
+        }
+
+        function formatDateTime(dateStr, timeStr) {
+
+            const [year, month, day] = dateStr.split('-').map(Number);
+            const dateObj = new Date(year, (month || 1) - 1, day || 1);
+
+            const dateLabel = dateObj.toLocaleDateString('en-US', {
+                day: '2-digit',
+                month: 'short'
+            });
+
+            const [hourStr, minuteStr] = timeStr.split(':');
+            const hour24 = parseInt(hourStr, 10);
+            const minute = minuteStr || '00';
+            const period = hour24 >= 12 ? 'PM' : 'AM';
+            const hour12 = ((hour24 % 12) || 12);
+
+            return dateLabel + ', ' + hour12 + ':' + minute + ' ' + period;
+
+        }
+
+        function buildRow(entry) {
+
+            const row = document.createElement('tr');
+            row.setAttribute('data-status', 'pending');
+
+            row.innerHTML =
+                '<td>' +
+                    '<div class="cell-user">' +
+                        '<div class="avatar-circle">' + initials(entry.customerName) + '</div>' +
+                        '<p class="cell-title mb-0">' + entry.customerName + '</p>' +
+                    '</div>' +
+                '</td>' +
+                '<td>' + entry.service + '</td>' +
+                '<td>' + entry.staff + '</td>' +
+                '<td>' + formatDateTime(entry.date, entry.time) + '</td>' +
+                '<td><span class="badge-status pending">Pending</span></td>' +
+                '<td>' +
+                    '<button class="btn-icon-action" title="View"><i class="fas fa-eye"></i></button>' +
+                    '<button class="btn-icon-action" title="Edit"><i class="fas fa-pen"></i></button>' +
+                    '<button class="btn-icon-action danger" title="Delete" data-remove-row><i class="fas fa-trash"></i></button>' +
+                '</td>';
+
+            return row;
+
+        }
+
+        // Restore any appointments booked in a previous session
+        // (reversed so the newest booking still ends up on top)
+        getBookings().slice().reverse().forEach(function (entry) {
+            tbody.insertBefore(buildRow(entry), tbody.firstChild);
+        });
+
+        bookBtn.addEventListener('click', function () {
+
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return;
+            }
+
+            const entry = {
+                id: 'appt_' + Date.now(),
+                customerName: form.querySelector('[name="customerName"]').value.trim(),
+                service: form.querySelector('[name="service"]').value,
+                staff: form.querySelector('[name="staff"]').value,
+                date: form.querySelector('[name="date"]').value,
+                time: form.querySelector('[name="time"]').value
+            };
+
+            const bookings = getBookings();
+            bookings.unshift(entry);
+            saveBookings(bookings);
+
+            tbody.insertBefore(buildRow(entry), tbody.firstChild);
+
+            form.reset();
+            form.classList.remove('was-validated');
+
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+            modal.hide();
+
+            if (typeof showAdminToast === 'function') {
+                showAdminToast('Appointment booked successfully!');
+            }
+
+        });
+
+        // Reset validation state whenever the modal is reopened
+        if (modalEl) {
+            modalEl.addEventListener('hidden.bs.modal', function () {
+                form.reset();
+                form.classList.remove('was-validated');
+            });
         }
 
     })();

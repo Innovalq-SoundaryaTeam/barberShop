@@ -122,17 +122,18 @@ const initTableSearch = () => {
 ========================================== */
 const initDeleteButtons = () => {
 
-    document.querySelectorAll('[data-remove-row]').forEach((btn) => {
+    // Event-delegated so rows added dynamically after page load
+    // (e.g. a newly booked appointment) get working delete buttons too.
+    document.addEventListener('click', (e) => {
 
-        btn.addEventListener('click', () => {
+        const btn = e.target.closest('[data-remove-row]');
+        if (!btn) return;
 
-            const target = btn.closest('tr') || btn.closest('[data-search-item]');
+        const target = btn.closest('tr') || btn.closest('[data-search-item]');
 
-            if (target && window.confirm('Delete this record?')) {
-                target.remove();
-            }
-
-        });
+        if (target && window.confirm('Delete this record?')) {
+            target.remove();
+        }
 
     });
 
