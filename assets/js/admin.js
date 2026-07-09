@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initDeleteButtons();
     initViewEditActions();
     initAdminFormToasts();
+    initSettingsPersistence();
 
 });
 
@@ -443,6 +444,114 @@ const initAdminFormToasts = () => {
     if (savePrefsBtn) {
         savePrefsBtn.addEventListener('click', () => {
             showAdminToast('Preferences saved successfully!');
+        });
+    }
+
+};
+
+/* ==========================================
+   SETTINGS PAGE PERSISTENCE
+   Saves Profile / Salon Info / Notifications
+   to localStorage so "Save Changes" actually
+   sticks around after a reload.
+========================================== */
+const SETTINGS_STORAGE_KEY = 'bs_admin_settings';
+
+const loadAdminSettings = () => {
+    try {
+        return JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY)) || {};
+    } catch (e) {
+        return {};
+    }
+};
+
+const saveAdminSettings = (patch) => {
+    const merged = { ...loadAdminSettings(), ...patch };
+    try {
+        localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(merged));
+    } catch (e) {}
+};
+
+const initSettingsPersistence = () => {
+
+    const profileForm = document.getElementById('profileForm');
+    const salonForm = document.getElementById('salonForm');
+    const notifyEls = {
+        appointments: document.getElementById('notifyAppointments'),
+        payments: document.getElementById('notifyPayments'),
+        reviews: document.getElementById('notifyReviews'),
+        marketing: document.getElementById('notifyMarketing')
+    };
+
+    // Not on the Settings page — nothing to do
+    if (!profileForm && !salonForm) return;
+
+    const saved = loadAdminSettings();
+
+    // Repopulate fields with anything previously saved
+    if (saved.profile && profileForm) {
+        ['fullName', 'email', 'phone'].forEach((field) => {
+            const input = profileForm.querySelector(`[name="${field}"]`);
+            if (input && saved.profile[field]) input.value = saved.profile[field];
+        });
+    }
+
+    if (saved.salon && salonForm) {
+        ['salonName', 'contactNumber', 'address', 'openingTime', 'closingTime'].forEach((field) => {
+            const input = salonForm.querySelector(`[name="${field}"]`);
+            if (input && saved.salon[field]) input.value = saved.salon[field];
+        });
+    }
+
+    if (saved.notifications) {
+        Object.keys(notifyEls).forEach((key) => {
+            const el = notifyEls[key];
+            if (el && typeof saved.notifications[key] === 'boolean') {
+                el.checked = saved.notifications[key];
+            }
+        });
+    }
+
+    // Persist Profile tab on save
+    if (profileForm) {
+        profileForm.addEventListener('submit', () => {
+            saveAdminSettings({
+                profile: {
+                    fullName: profileForm.querySelector('[name="fullName"]').value.trim(),
+                    email: profileForm.querySelector('[name="email"]').value.trim(),
+                    phone: profileForm.querySelector('[name="phone"]').value.trim()
+                }
+            });
+        });
+    }
+
+    // Persist Salon Info tab on save
+    if (salonForm) {
+        salonForm.addEventListener('submit', () => {
+            saveAdminSettings({
+                salon: {
+                    salonName: salonForm.querySelector('[name="salonName"]').value.trim(),
+                    contactNumber: salonForm.querySelector('[name="contactNumber"]').value.trim(),
+                    address: salonForm.querySelector('[name="address"]').value.trim(),
+                    openingTime: salonForm.querySelector('[name="openingTime"]').value,
+                    closingTime: salonForm.querySelector('[name="closingTime"]').value
+                }
+            });
+        });
+    }
+
+    // Persist Notifications tab on save
+    const savePrefsBtn = document.getElementById('savePreferencesBtn');
+    if (savePrefsBtn) {
+        savePrefsBtn.addEventListener('click', () => {
+            saveAdminSettings({
+                notifications: {
+                    appointments: notifyEls.appointments ? notifyEls.appointments.checked : true,
+                    payments: notifyEls.payments ? notifyEls.payments.checked : true,
+                    reviews: notifyEls.reviews ? notifyEls.reviews.checked : true,
+                    marketing: notifyEls.marketing ? notifyEls.marketing.checked : false
+                }
+            });
         });
     }
 

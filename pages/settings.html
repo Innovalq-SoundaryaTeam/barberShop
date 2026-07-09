@@ -102,19 +102,19 @@
                                 <button class="btn-admin-outline btn-sm"><i class="fas fa-camera me-2"></i>Change Photo</button>
                             </div>
                         </div>
-                        <form novalidate>
+                        <form novalidate id="profileForm">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" value="Admin User">
+                                    <input type="text" class="form-control" name="fullName" value="Admin User">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" value="admin@barberstudio.com">
+                                    <input type="email" class="form-control" name="email" value="admin@barberstudio.com">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-control" value="+91 98765 43210">
+                                    <input type="tel" class="form-control" name="phone" value="+91 98765 43210">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Role</label>
@@ -127,27 +127,27 @@
 
                     <!-- Salon Info -->
                     <div class="tab-pane fade" id="tab-salon">
-                        <form novalidate>
+                        <form novalidate id="salonForm">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label">Salon Name</label>
-                                    <input type="text" class="form-control" value="The Barber Studio">
+                                    <input type="text" class="form-control" name="salonName" value="The Barber Studio">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Contact Number</label>
-                                    <input type="tel" class="form-control" value="+91 98765 12345">
+                                    <input type="tel" class="form-control" name="contactNumber" value="+91 98765 12345">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Address</label>
-                                    <input type="text" class="form-control" value="123 MG Road, Coimbatore, Tamil Nadu">
+                                    <input type="text" class="form-control" name="address" value="123 MG Road, Coimbatore, Tamil Nadu">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Opening Time</label>
-                                    <input type="time" class="form-control" value="09:00">
+                                    <input type="time" class="form-control" name="openingTime" value="09:00">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Closing Time</label>
-                                    <input type="time" class="form-control" value="21:00">
+                                    <input type="time" class="form-control" name="closingTime" value="21:00">
                                 </div>
                             </div>
                             <button type="submit" class="btn-admin-primary mt-4"><i class="fas fa-check me-2"></i>Save Changes</button>
@@ -162,7 +162,7 @@
                                 <p class="cell-sub mb-0">Get notified when a customer books an appointment.</p>
                             </div>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" checked>
+                                <input class="form-check-input" type="checkbox" role="switch" id="notifyAppointments" checked>
                             </div>
                         </div>
                         <div class="d-flex align-items-center justify-content-between py-3" style="border-bottom:1px solid var(--color-border);">
@@ -171,7 +171,7 @@
                                 <p class="cell-sub mb-0">Get notified for every successful payment.</p>
                             </div>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" checked>
+                                <input class="form-check-input" type="checkbox" role="switch" id="notifyPayments" checked>
                             </div>
                         </div>
                         <div class="d-flex align-items-center justify-content-between py-3" style="border-bottom:1px solid var(--color-border);">
@@ -180,7 +180,7 @@
                                 <p class="cell-sub mb-0">Get notified when a customer leaves a review.</p>
                             </div>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" checked>
+                                <input class="form-check-input" type="checkbox" role="switch" id="notifyReviews" checked>
                             </div>
                         </div>
                         <div class="d-flex align-items-center justify-content-between py-3">
@@ -189,7 +189,7 @@
                                 <p class="cell-sub mb-0">Receive tips and product updates from us.</p>
                             </div>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="notifyMarketing">
                             </div>
                         </div>
                         <button type="button" id="savePreferencesBtn" class="btn-admin-primary mt-4"><i class="fas fa-check me-2"></i>Save Preferences</button>
