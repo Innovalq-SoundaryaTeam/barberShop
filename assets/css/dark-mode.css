@@ -31,6 +31,15 @@ body.light-mode h6 {
     color: #111111;
 }
 
+/* Auth banner (Admin/Register left panel) is always a dark photo
+   overlay regardless of site theme — keep its text light so it
+   doesn't go near-invisible in light mode. */
+body.light-mode .auth-overlay h1,
+body.light-mode .auth-overlay h2,
+body.light-mode .auth-overlay p {
+    color: #FFFFFF;
+}
+
 /* ==================================================
    NAVBAR
    ================================================== */
