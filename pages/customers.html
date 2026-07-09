@@ -261,24 +261,27 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form novalidate>
+                            <form novalidate id="customerForm">
                                 <div class="mb-3">
                                     <label class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter full name">
+                                    <input type="text" class="form-control" name="name" placeholder="Enter full name" required>
+                                    <div class="invalid-feedback">Please enter a full name.</div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" placeholder="Enter email">
+                                    <input type="email" class="form-control" name="email" placeholder="Enter email" required>
+                                    <div class="invalid-feedback">Please enter a valid email address.</div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-control" placeholder="Enter phone number">
+                                    <input type="tel" class="form-control" name="phone" placeholder="Enter phone number" required>
+                                    <div class="invalid-feedback">Please enter a phone number.</div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn-admin-outline" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn-admin-primary" data-bs-dismiss="modal">Save Customer</button>
+                            <button type="button" class="btn-admin-primary" id="saveCustomerBtn">Save Customer</button>
                         </div>
                     </div>
                 </div>
@@ -367,15 +370,8 @@
 
         });
 
-        // Rewire delete buttons on the newly-added rows
-        tbody.querySelectorAll('[data-remove-row]').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                const target = btn.closest('tr');
-                if (target && window.confirm('Delete this record?')) {
-                    target.remove();
-                }
-            });
-        });
+        // Delete buttons are handled by a single event-delegated
+        // listener in admin.js, so newly-added rows work automatically.
 
         // Reflect real leads in the summary stats
         const totalStat = document.querySelector('.stat-card .stat-info h3');
@@ -388,6 +384,127 @@
         if (newStat) {
             const base = parseInt(newStat.textContent, 10) || 0;
             newStat.textContent = base + inquiries.length;
+        }
+
+    })();
+</script>
+
+<script>
+    (function bookableCustomers() {
+
+        const STORAGE_KEY = 'bs_added_customers';
+        const form = document.getElementById('customerForm');
+        const saveBtn = document.getElementById('saveCustomerBtn');
+        const tbody = document.querySelector('#customersTable tbody');
+        const modalEl = document.getElementById('addCustomerModal');
+
+        if (!form || !saveBtn || !tbody) return;
+
+        function getEntries() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveEntries(entries) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+            } catch (e) {}
+        }
+
+        function initials(name) {
+            return (name || '?')
+                .trim()
+                .split(/\s+/)
+                .map(function (part) { return part.charAt(0).toUpperCase(); })
+                .slice(0, 2)
+                .join('') || '?';
+        }
+
+        function bumpStat(index) {
+            const stat = document.querySelectorAll('.stat-card .stat-info h3')[index];
+            if (stat) {
+                const base = parseInt(stat.textContent, 10) || 0;
+                stat.textContent = base + 1;
+            }
+        }
+
+        function buildRow(entry) {
+
+            const row = document.createElement('tr');
+
+            row.innerHTML =
+                '<td>' +
+                    '<div class="cell-user">' +
+                        '<div class="avatar-circle">' + initials(entry.name) + '</div>' +
+                        '<div>' +
+                            '<p class="cell-title">' + entry.name + '</p>' +
+                            '<p class="cell-sub">' + entry.email + '</p>' +
+                        '</div>' +
+                    '</div>' +
+                '</td>' +
+                '<td>' + entry.phone + '</td>' +
+                '<td>0</td>' +
+                '<td>Just now</td>' +
+                '<td><span class="badge-status new">New</span></td>' +
+                '<td>' +
+                    '<button class="btn-icon-action" title="View"><i class="fas fa-eye"></i></button>' +
+                    '<button class="btn-icon-action" title="Edit"><i class="fas fa-pen"></i></button>' +
+                    '<button class="btn-icon-action danger" title="Delete" data-remove-row><i class="fas fa-trash"></i></button>' +
+                '</td>';
+
+            return row;
+
+        }
+
+        // Restore anything added in a previous session
+        getEntries().slice().reverse().forEach(function (entry) {
+            tbody.insertBefore(buildRow(entry), tbody.firstChild);
+            bumpStat(0);
+            bumpStat(1);
+        });
+
+        saveBtn.addEventListener('click', function () {
+
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return;
+            }
+
+            const entry = {
+                id: 'cust_' + Date.now(),
+                name: form.querySelector('[name="name"]').value.trim(),
+                email: form.querySelector('[name="email"]').value.trim(),
+                phone: form.querySelector('[name="phone"]').value.trim()
+            };
+
+            const entries = getEntries();
+            entries.unshift(entry);
+            saveEntries(entries);
+
+            tbody.insertBefore(buildRow(entry), tbody.firstChild);
+            bumpStat(0);
+            bumpStat(1);
+
+            form.reset();
+            form.classList.remove('was-validated');
+
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+            modal.hide();
+
+            if (typeof showAdminToast === 'function') {
+                showAdminToast('Customer saved successfully!');
+            }
+
+        });
+
+        if (modalEl) {
+            modalEl.addEventListener('hidden.bs.modal', function () {
+                form.reset();
+                form.classList.remove('was-validated');
+            });
         }
 
     })();

@@ -259,35 +259,40 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form novalidate>
+                            <form novalidate id="serviceForm">
                                 <div class="mb-3">
                                     <label class="form-label">Service Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter service name">
+                                    <input type="text" class="form-control" name="name" placeholder="Enter service name" required>
+                                    <div class="invalid-feedback">Please enter a service name.</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Price (&#8377;)</label>
-                                        <input type="number" class="form-control" placeholder="0.00">
+                                        <input type="number" class="form-control" name="price" placeholder="0.00" min="0" required>
+                                        <div class="invalid-feedback">Please enter a price.</div>
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label class="form-label">Duration</label>
-                                        <input type="text" class="form-control" placeholder="e.g. 45 min">
+                                        <input type="text" class="form-control" name="duration" placeholder="e.g. 45 min" required>
+                                        <div class="invalid-feedback">Please enter a duration.</div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Category</label>
-                                    <select class="form-select">
+                                    <select class="form-select" name="category" required>
+                                        <option value="" selected disabled>Select a category</option>
                                         <option>Hair Care</option>
                                         <option>Beard Care</option>
                                         <option>Coloring</option>
                                         <option>Combo</option>
                                     </select>
+                                    <div class="invalid-feedback">Please choose a category.</div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn-admin-outline" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn-admin-primary" data-bs-dismiss="modal">Save Service</button>
+                            <button type="button" class="btn-admin-primary" id="saveServiceBtn">Save Service</button>
                         </div>
                     </div>
                 </div>
@@ -300,6 +305,121 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/main.js"></script>
 <script src="../assets/js/admin.js"></script>
+
+<script>
+    (function bookableServices() {
+
+        const STORAGE_KEY = 'bs_added_services';
+        const form = document.getElementById('serviceForm');
+        const saveBtn = document.getElementById('saveServiceBtn');
+        const grid = document.getElementById('servicesGrid');
+        const modalEl = document.getElementById('addServiceModal');
+
+        if (!form || !saveBtn || !grid) return;
+
+        function getEntries() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveEntries(entries) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+            } catch (e) {}
+        }
+
+        function bumpTotalServicesStat() {
+            const stat = document.querySelectorAll('.stat-card .stat-info h3')[0];
+            if (stat) {
+                const base = parseInt(stat.textContent, 10) || 0;
+                stat.textContent = base + 1;
+            }
+        }
+
+        function buildCard(entry) {
+
+            const col = document.createElement('div');
+            col.className = 'col-md-6 col-lg-4';
+            col.setAttribute('data-search-item', '');
+
+            col.innerHTML =
+                '<div class="entity-card">' +
+                    '<div class="entity-card-img">' +
+                        '<img src="../assets/images/gallery-1.jpg" alt="' + entry.name + '">' +
+                    '</div>' +
+                    '<div class="entity-card-body">' +
+                        '<h3>' + entry.name + '</h3>' +
+                        '<p class="role">' + entry.category + '</p>' +
+                        '<div class="d-flex justify-content-between">' +
+                            '<span><i class="fas fa-indian-rupee-sign me-1"></i>' + entry.price + '</span>' +
+                            '<span><i class="fas fa-clock me-1"></i>' + entry.duration + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="entity-card-footer">' +
+                        '<span class="badge-status active">Active</span>' +
+                        '<div>' +
+                            '<button class="btn-icon-action" title="Edit"><i class="fas fa-pen"></i></button>' +
+                            '<button class="btn-icon-action danger" title="Delete" data-remove-row><i class="fas fa-trash"></i></button>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+
+            return col;
+
+        }
+
+        // Restore anything added in a previous session
+        getEntries().slice().reverse().forEach(function (entry) {
+            grid.insertBefore(buildCard(entry), grid.firstChild);
+            bumpTotalServicesStat();
+        });
+
+        saveBtn.addEventListener('click', function () {
+
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return;
+            }
+
+            const entry = {
+                id: 'svc_' + Date.now(),
+                name: form.querySelector('[name="name"]').value.trim(),
+                price: form.querySelector('[name="price"]').value.trim(),
+                duration: form.querySelector('[name="duration"]').value.trim(),
+                category: form.querySelector('[name="category"]').value
+            };
+
+            const entries = getEntries();
+            entries.unshift(entry);
+            saveEntries(entries);
+
+            grid.insertBefore(buildCard(entry), grid.firstChild);
+            bumpTotalServicesStat();
+
+            form.reset();
+            form.classList.remove('was-validated');
+
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+            modal.hide();
+
+            if (typeof showAdminToast === 'function') {
+                showAdminToast('Service saved successfully!');
+            }
+
+        });
+
+        if (modalEl) {
+            modalEl.addEventListener('hidden.bs.modal', function () {
+                form.reset();
+                form.classList.remove('was-validated');
+            });
+        }
+
+    })();
+</script>
 
 </body>
 </html>
