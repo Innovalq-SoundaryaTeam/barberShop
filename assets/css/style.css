@@ -2632,6 +2632,16 @@ body.light-mode .text-secondary {
     font-size: 1.1rem;
 }
 
+.hero-mini-stats {
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+.hero-mini-stats strong {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
 .hero-image-v2 {
     position: relative;
     z-index: 2;
