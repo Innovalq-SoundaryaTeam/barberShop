@@ -215,7 +215,12 @@ const getRecordFields = (btn) => {
                 fields.push({ label: label + ' Name', value: nameEl.textContent.trim(), el: nameEl });
                 fields.push({ label: label + ' Detail', value: subEl.textContent.trim(), el: subEl });
             } else if (badgeEl) {
-                fields.push({ label: label, value: badgeEl.textContent.trim(), el: badgeEl });
+                fields.push({
+                    label: label,
+                    value: badgeEl.textContent.trim(),
+                    el: badgeEl,
+                    statusOptions: getStatusOptions(table)
+                });
             } else if (cell.children.length === 0) {
                 fields.push({ label: label, value: cell.textContent.trim(), el: cell });
             } else {
@@ -240,11 +245,45 @@ const getRecordFields = (btn) => {
             if (spans[1]) fields.push({ label: 'Duration', value: spans[1].textContent.trim(), el: spans[1] });
         }
 
-        if (badge) fields.push({ label: 'Status', value: badge.textContent.trim(), el: badge });
+        if (badge) {
+            const grid = card.closest('.row[id]') || card.closest('[id]');
+            fields.push({
+                label: 'Status',
+                value: badge.textContent.trim(),
+                el: badge,
+                statusOptions: getStatusOptions(grid)
+            });
+        }
 
     }
 
     return fields;
+
+};
+
+/* Collect the distinct status badges (text + CSS class) already present
+   in a table/grid, so the Edit modal can offer them as a dropdown
+   instead of a free-text box. Works for any status vocabulary
+   (Pending/Confirmed/... for appointments, Active/On Leave for staff, etc.)
+   without hardcoding it per page. */
+const getStatusOptions = (container) => {
+
+    if (!container) return [];
+
+    const seen = new Map();
+
+    container.querySelectorAll('.badge-status').forEach((badge) => {
+
+        const text = badge.textContent.trim();
+        const cls = Array.from(badge.classList).find((c) => c !== 'badge-status');
+
+        if (text && cls && !seen.has(cls)) {
+            seen.set(cls, { text: text, cls: cls });
+        }
+
+    });
+
+    return Array.from(seen.values());
 
 };
 
@@ -310,6 +349,23 @@ const openRecordModal = (btn, mode) => {
                 '</div>';
             }
 
+            if (f.statusOptions && f.statusOptions.length) {
+
+                const optionsHtml = f.statusOptions.map((opt) =>
+                    '<option value="' + opt.cls + '"' + (opt.text === f.value ? ' selected' : '') + '>' +
+                        opt.text +
+                    '</option>'
+                ).join('');
+
+                return '<div class="mb-3">' +
+                    '<label class="form-label">' + f.label + '</label>' +
+                    '<select class="form-select" data-field-index="' + i + '" data-status-field>' +
+                        optionsHtml +
+                    '</select>' +
+                '</div>';
+
+            }
+
             const safeValue = (f.value || '').replace(/"/g, '&quot;');
 
             return '<div class="mb-3">' +
@@ -329,12 +385,25 @@ const openRecordModal = (btn, mode) => {
 
         saveBtn.addEventListener('click', () => {
 
-            body.querySelectorAll('input[data-field-index]').forEach((input) => {
+            body.querySelectorAll('[data-field-index]').forEach((input) => {
 
                 const idx = Number(input.dataset.fieldIndex);
                 const field = fields[idx];
 
-                if (field && field.el) {
+                if (!field || !field.el) return;
+
+                if (input.hasAttribute('data-status-field')) {
+
+                    const chosen = input.options[input.selectedIndex];
+                    field.el.textContent = chosen.textContent;
+                    field.el.className = 'badge-status ' + chosen.value;
+
+                    // Keep row-level filter state (e.g. Appointments' status
+                    // pills) in sync with the badge that was just changed.
+                    const row = field.el.closest('tr');
+                    if (row) row.setAttribute('data-status', chosen.value);
+
+                } else {
                     field.el.textContent = input.value;
                 }
 
