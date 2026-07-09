@@ -668,7 +668,7 @@
     font-size: .85rem;
 }
 
-.admin-search input{
+.admin-wrapper .admin-search input{
     padding-left: 38px;
     background: var(--color-bg);
     border: 1px solid var(--color-border);
@@ -676,7 +676,7 @@
     border-radius: 10px;
 }
 
-.admin-search input:focus{
+.admin-wrapper .admin-search input:focus{
     background: var(--color-bg);
     color: var(--color-text);
     border-color: var(--color-primary);
