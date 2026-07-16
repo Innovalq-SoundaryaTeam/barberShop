@@ -198,6 +198,14 @@ select:focus {
     margin: 0;
 }
 
+/* ".bg-white" sections keep a literal white background regardless of
+   theme, so their subtitle text must always stay dark — otherwise it
+   inherits the dark theme's white body text and disappears. */
+.bg-white .section-title p {
+    color: #4a4a4a;
+    opacity: 1;
+}
+
 /* ==================================================
    NAVBAR
    ================================================== */
