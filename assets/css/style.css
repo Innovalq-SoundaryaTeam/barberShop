@@ -1250,12 +1250,14 @@ body.light-mode .rtl-floating-toggle {
 
 .featured-plan{
     border:2px solid var(--color-primary);
+    padding-top: 3.25rem;
 }
 
 .plan-badge{
     position:absolute;
-    top:-12px;
+    top:14px;
     right:20px;
+    z-index: 2;
     background:var(--color-primary);
     color:#000;
     padding:.4rem 1rem;
