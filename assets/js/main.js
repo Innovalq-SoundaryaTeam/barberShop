@@ -12,8 +12,79 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeAccessibility();
     injectAccountNav();
     initializeRTLToggle();
+    setActiveNavLink();
 
 });
+
+/* ==================================================
+   ACTIVE NAV LINK
+   Highlights whichever navbar item matches the page
+   currently being viewed, instead of relying on a
+   hardcoded "active" class baked into each page's HTML
+   (which previously always pointed at Home everywhere).
+   Detail/child pages are mapped back to their parent
+   nav item (e.g. service-details.html -> Services).
+   ================================================== */
+const setActiveNavLink = () => {
+
+    const navbar = document.querySelector('#mainNavbar .navbar-nav');
+
+    if (!navbar) return;
+
+    let currentPage = window.location.pathname.split('/').pop();
+
+    if (!currentPage) currentPage = 'index.html';
+
+    const pageGroup = {
+        'index.html': 'home',
+        'home-2.html': 'home',
+        'about.html': 'about.html',
+        'team.html': 'about.html',
+        'testimonials.html': 'about.html',
+        'careers.html': 'about.html',
+        'services.html': 'services.html',
+        'service-details.html': 'services.html',
+        'gallery.html': 'gallery.html',
+        'pricing.html': 'pricing.html',
+        'blog.html': 'blog.html',
+        'blog-single.html': 'blog.html',
+        'contact.html': 'contact.html',
+        'faq.html': 'contact.html'
+    };
+
+    const group = pageGroup[currentPage];
+
+    // Clear any pre-existing active state first — some pages ship with
+    // a hardcoded "active" class that doesn't match the current page.
+    navbar.querySelectorAll('.nav-link, .dropdown-item').forEach(el => {
+        el.classList.remove('active');
+    });
+
+    if (group === 'home') {
+
+        const homeToggle = navbar.querySelector('#homeDropdown');
+
+        if (homeToggle) homeToggle.classList.add('active');
+
+        navbar.querySelectorAll('.dropdown-item').forEach(item => {
+            if (item.getAttribute('href') === currentPage) {
+                item.classList.add('active');
+            }
+        });
+
+        return;
+
+    }
+
+    if (group) {
+
+        const link = navbar.querySelector(`.nav-link[href="${group}"]`);
+
+        if (link) link.classList.add('active');
+
+    }
+
+};
 
 /* ==================================================
    THEME DETECTION
