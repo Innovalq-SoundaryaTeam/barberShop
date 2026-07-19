@@ -188,6 +188,24 @@ body.light-mode .table-dark-custom td {
 }
 
 /* ==================================================
+   PRICING PAGE
+   ================================================== */
+
+body.light-mode .pricing-card,
+body.light-mode .membership-card {
+    border-color: rgba(0,0,0,.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+
+body.light-mode .pricing-features li {
+    border-bottom-color: rgba(0,0,0,.1);
+}
+
+body.light-mode .pricing-table td {
+    border-color: rgba(0,0,0,.08);
+}
+
+/* ==================================================
    ACCORDIONS
    ================================================== */
 

@@ -84,9 +84,10 @@ const updateThemeIcon = (button) => {
 };
 
 /* ==================================================
-   ACCOUNT NAV LINK (site-wide, non-admin pages)
-   Injects a Login link into the public navbar so every
-   page stays connected to the new auth pages without
+   ACCOUNT NAV + BOOK NOW CTA (site-wide, non-admin pages)
+   Injects a Login (secondary CTA) and Book Now (primary CTA)
+   into the public navbar, in that order, right after the
+   theme toggle, so every page stays consistent without
    editing each page's markup individually.
    ================================================== */
 
@@ -100,16 +101,24 @@ const injectAccountNav = () => {
 
     const themeItem = navList.querySelector('.ms-lg-3');
 
-    const li = document.createElement('li');
-    li.className = 'nav-item ms-lg-3';
-    li.innerHTML =
-        '<a id="navLoginLink" class="nav-link" href="login.html">' +
+    const loginLi = document.createElement('li');
+    loginLi.className = 'nav-item ms-lg-2';
+    loginLi.innerHTML =
+        '<a id="navLoginLink" class="btn btn-outline-barber btn-sm" href="login.html">' +
         '<i class="fas fa-user me-1"></i>Login</a>';
 
+    const bookLi = document.createElement('li');
+    bookLi.className = 'nav-item ms-lg-2';
+    bookLi.innerHTML =
+        '<a id="navBookNowLink" class="btn btn-barber btn-sm" href="contact.html">' +
+        '<i class="fas fa-calendar-check me-1"></i>Book Now</a>';
+
     if (themeItem) {
-        navList.insertBefore(li, themeItem);
+        themeItem.insertAdjacentElement('afterend', loginLi);
+        loginLi.insertAdjacentElement('afterend', bookLi);
     } else {
-        navList.appendChild(li);
+        navList.appendChild(loginLi);
+        navList.appendChild(bookLi);
     }
 
 };
@@ -143,7 +152,7 @@ const initializeRTLToggle = () => {
     button.setAttribute('aria-label', 'Toggle Right-To-Left Layout');
     button.setAttribute('title', 'Switch Layout Direction');
     button.innerHTML =
-        '<i class="fas fa-globe"></i><span class="rtl-toggle-label">EN</span>';
+        '<i class="fas fa-globe"></i><span class="rtl-toggle-label">LTR</span>';
 
     document.body.appendChild(button);
 
@@ -151,7 +160,7 @@ const initializeRTLToggle = () => {
 
     const applyDirection = (dir) => {
         document.documentElement.setAttribute('dir', dir);
-        label.textContent = dir === 'rtl' ? 'AR' : 'EN';
+        label.textContent = dir === 'rtl' ? 'RTL' : 'LTR';
     };
 
     let savedDir = 'ltr';
