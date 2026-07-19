@@ -103,8 +103,8 @@ const injectAccountNav = () => {
     const li = document.createElement('li');
     li.className = 'nav-item ms-lg-3';
     li.innerHTML =
-        '<a id="navLoginLink" class="nav-link" href="admin-login.html">' +
-        '<i class="fas fa-user-shield me-1"></i>Admin Login</a>';
+        '<a id="navLoginLink" class="nav-link" href="login.html">' +
+        '<i class="fas fa-user me-1"></i>Login</a>';
 
     if (themeItem) {
         navList.insertBefore(li, themeItem);
@@ -1004,7 +1004,7 @@ if(registerPassword){
 
 
 
-/* NOTE: real login/registration submit handling now lives in
-   admin-login.html and register.html (Admin Sign Up), which
-   verify credentials instead of redirecting unconditionally.
-   The customer-facing login/dashboard has been removed. */
+/* NOTE: real login/registration submit handling lives in
+   login.html and signup.html, which verify credentials against
+   accounts stored in localStorage ("bs_accounts"). There is no
+   dashboard behind these — this site has no admin area. */

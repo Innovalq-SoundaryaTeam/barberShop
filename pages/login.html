@@ -1,19 +1,193 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=admin-login.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | The Barber Studio</title>
+    <meta name="description" content="Sign in to your Barber Studio account.">
     <meta name="robots" content="noindex,nofollow">
-    <title>Redirecting... | The Barber Studio</title>
     <link rel="icon" href="../assets/images/favicon.svg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dark-mode.css">
 </head>
 <body>
-    <p>
-        Customer login has been removed.
-        Redirecting to <a href="admin-login.html">Admin Login</a>...
-    </p>
+    <main class="auth-page">
+        <div class="container-fluid">
+            <div class="row min-vh-100">
+                <!-- Left Side -->
+                <div class="col-lg-6 auth-banner d-none d-lg-flex">
+                    <div class="auth-overlay">
+                        <a href="index.html" class="auth-brand-link">
+                            <i class="fas fa-scissors" aria-hidden="true"></i> Barber Studio
+                        </a>
+                        <div class="auth-logo-mark">
+                            <i class="fas fa-scissors" aria-hidden="true"></i>
+                        </div>
+                        <h1>Welcome Back</h1>
+                        <p>Sign in to manage your bookings and keep your profile up to date.</p>
+                    </div>
+                </div>
+
+                <!-- Right Side -->
+                <div class="col-lg-6 d-flex align-items-center">
+                    <div class="auth-form-wrapper">
+                        <div class="text-center mb-4">
+                            <a href="index.html" class="auth-brand-link d-lg-none">
+                                <i class="fas fa-scissors" aria-hidden="true"></i> Barber Studio
+                            </a>
+                            <span class="auth-badge">
+                                <i class="fas fa-user"></i> Welcome Back
+                            </span>
+                            <h2>Sign In</h2>
+                            <p>Enter your email and password to continue</p>
+                        </div>
+
+                        <form class="auth-form" id="loginForm" novalidate>
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label class="form-label" for="loginEmail">Email Address</label>
+                                <input
+                                    type="email"
+                                    id="loginEmail"
+                                    class="form-control"
+                                    placeholder="Enter your email"
+                                    autocomplete="username"
+                                    required>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label class="form-label" for="loginPassword">Password</label>
+                                <div class="password-wrapper">
+                                    <input
+                                        type="password"
+                                        id="loginPassword"
+                                        class="form-control"
+                                        placeholder="Enter your password"
+                                        autocomplete="current-password"
+                                        required>
+                                    <button type="button" class="password-toggle" id="toggleLoginPassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Remember -->
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="rememberLogin">
+                                    <label class="form-check-label" for="rememberLogin">Keep me signed in</label>
+                                </div>
+                                <a href="forgot-password.html">Forgot Password?</a>
+                            </div>
+
+                            <div id="loginError" class="alert alert-danger d-none" role="alert"></div>
+                            <div id="loginSuccess" class="alert alert-success d-none" role="alert"></div>
+
+                            <button type="submit" class="btn btn-barber w-100">
+                                <i class="fas fa-right-to-bracket me-2"></i> Sign In
+                            </button>
+
+                            <div class="auth-divider"><span>or continue with</span></div>
+
+                            <div class="social-login">
+                                <button type="button" class="btn btn-outline-barber social-btn-google" id="googleLoginBtn">
+                                    <i class="fab fa-google me-2"></i>Google
+                                </button>
+                                <button type="button" class="btn btn-outline-barber social-btn-apple" id="appleLoginBtn">
+                                    <i class="fab fa-apple me-2"></i>Apple
+                                </button>
+                            </div>
+
+                            <!-- Sign Up Link -->
+                            <div class="auth-footer">
+                                <p>
+                                    Don't have an account?
+                                    <a href="signup.html">Sign Up</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../assets/js/main.js"></script>
     <script>
-        window.location.replace('admin-login.html');
+        (function () {
+            const form = document.getElementById('loginForm');
+            const errorBox = document.getElementById('loginError');
+            const successBox = document.getElementById('loginSuccess');
+            const toggleBtn = document.getElementById('toggleLoginPassword');
+            const pwdInput = document.getElementById('loginPassword');
+            const googleBtn = document.getElementById('googleLoginBtn');
+            const appleBtn = document.getElementById('appleLoginBtn');
+
+            if (toggleBtn && pwdInput) {
+                toggleBtn.addEventListener('click', function () {
+                    const isPwd = pwdInput.type === 'password';
+                    pwdInput.type = isPwd ? 'text' : 'password';
+                    toggleBtn.querySelector('i').className = isPwd ? 'fas fa-eye-slash' : 'fas fa-eye';
+                });
+            }
+
+            function getAccounts() {
+                try {
+                    return JSON.parse(localStorage.getItem('bs_accounts')) || [];
+                } catch (err) {
+                    return [];
+                }
+            }
+
+            function showSocialNotice(provider) {
+                errorBox.classList.add('d-none');
+                successBox.textContent = provider + ' sign-in isn\'t available in this demo, but the button is wired and ready for a real OAuth integration.';
+                successBox.classList.remove('d-none');
+            }
+
+            if (googleBtn) {
+                googleBtn.addEventListener('click', function () { showSocialNotice('Google'); });
+            }
+            if (appleBtn) {
+                appleBtn.addEventListener('click', function () { showSocialNotice('Apple'); });
+            }
+
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    errorBox.classList.add('d-none');
+                    successBox.classList.add('d-none');
+
+                    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+                    const password = pwdInput.value;
+
+                    const matched = getAccounts().find(function (acc) {
+                        return acc.email.toLowerCase() === email && acc.password === password;
+                    });
+
+                    if (!matched) {
+                        errorBox.textContent = 'Invalid email or password. Please try again or sign up.';
+                        errorBox.classList.remove('d-none');
+                        return;
+                    }
+
+                    try {
+                        sessionStorage.setItem('bs_auth', '1');
+                        sessionStorage.setItem('bs_auth_email', matched.email);
+                    } catch (err) {}
+
+                    successBox.textContent = 'Signed in successfully! Redirecting...';
+                    successBox.classList.remove('d-none');
+
+                    setTimeout(function () {
+                        window.location.href = 'index.html';
+                    }, 700);
+                });
+            }
+        })();
     </script>
 </body>
 </html>
