@@ -940,45 +940,32 @@ body.light-mode .hero-content p {
     }
 }
 
-/* Navbar is still in expanded/horizontal mode (navbar-expand-lg)
-   between 992px and 1024px, but the brand + 7 links + theme toggle +
-   Login/Book Now buttons are too wide for that space, causing links
-   to crowd, wrap unevenly, or overlap the CTA buttons. Tighten
-   spacing/size just in this range so everything stays on one
-   aligned row. */
-@media (min-width: 992px) and (max-width: 1024px) {
+/* At 992-1024px there isn't enough room for the brand + 7 links +
+   theme toggle + Login/Book Now buttons on one horizontal row —
+   they used to crowd, wrap unevenly, or overlap. Rather than keep
+   shrinking fonts to force everything to fit, the navbar now uses
+   .navbar-expand-xl (see markup) so it stays in the collapsed
+   hamburger-menu layout all the way up to 1200px, and only switches
+   to the horizontal layout once there's genuinely enough width for
+   it. The rules below just make sure the collapsed menu itself is
+   comfortably spaced at these wider (tablet/small-laptop) sizes,
+   since it's no longer only used on phones. */
+@media (min-width: 768px) and (max-width: 1199px) {
 
-    .navbar .container {
-        padding-left: 12px;
-        padding-right: 12px;
+    .navbar-collapse {
+        margin-top: 16px;
     }
 
-    .navbar-brand {
-        font-size: 1.4rem;
-    }
-
-    .navbar-nav .nav-link {
-        font-size: .85rem;
-        padding-left: .5rem !important;
-        padding-right: .5rem !important;
-    }
-
-    .navbar-nav .ms-lg-3 {
-        margin-left: .5rem !important;
-    }
-
-    .navbar-nav .ms-lg-2 {
-        margin-left: .35rem !important;
+    .navbar-nav .nav-item,
+    .navbar-nav .nav-item.ms-lg-2,
+    .navbar-nav .nav-item.ms-lg-3 {
+        margin-left: 0 !important;
+        margin-bottom: 10px;
     }
 
     #navLoginLink,
     #navBookNowLink {
-        padding: 8px 14px;
-        font-size: .78rem;
-    }
-
-    #themeToggle {
-        padding: 8px 12px;
+        display: inline-flex;
     }
 }
 
