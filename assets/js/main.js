@@ -227,6 +227,24 @@ const initializeRTLToggle = () => {
 
     document.body.appendChild(button);
 
+    // The navbar's actual height varies by screen size (collapsed
+    // hamburger vs. expanded horizontal layout, wrapped nav items,
+    // etc.), so a single fixed "top" value in CSS can't reliably sit
+    // just below it on every viewport — it ends up overlapping the
+    // navbar at some widths. Measure the real navbar height instead
+    // and position the floating button just underneath it, recomputed
+    // whenever the layout changes.
+    const positionRTLToggle = () => {
+        const navbar = document.querySelector('.navbar');
+        if (!navbar) return;
+        button.style.top = (navbar.getBoundingClientRect().height + 12) + 'px';
+    };
+
+    positionRTLToggle();
+    window.addEventListener('resize', positionRTLToggle);
+    window.addEventListener('load', positionRTLToggle);
+    window.addEventListener('orientationchange', positionRTLToggle);
+
     const label = button.querySelector('.rtl-toggle-label');
 
     const applyDirection = (dir) => {

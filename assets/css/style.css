@@ -969,6 +969,36 @@ body.light-mode .hero-content p {
     }
 }
 
+/* Prevent "Login"/"Book Now" from ever wrapping onto a second line
+   inside their pill buttons — with the uppercase text + letter-spacing
+   from .btn-barber/.btn-outline-barber, the flex item could shrink
+   below the text's natural width right at the horizontal-layout
+   breakpoint and wrap ugly, which also made the navbar taller than
+   the floating RTL toggle expected. */
+#navLoginLink,
+#navBookNowLink {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Just above the xl breakpoint (1200-1399px) the horizontal navbar
+   has just barely enough room — tighten these two buttons slightly
+   so "Book Now" / "Login" never crowd the links beside them. */
+@media (min-width: 1200px) and (max-width: 1399px) {
+
+    .navbar-nav .nav-link {
+        font-size: .92rem;
+        padding-left: .55rem !important;
+        padding-right: .55rem !important;
+    }
+
+    #navLoginLink,
+    #navBookNowLink {
+        padding: 10px 20px;
+        font-size: .8rem;
+    }
+}
+
 @media (max-width: 640px) {
 
     .section-padding {
