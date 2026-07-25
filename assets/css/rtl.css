@@ -93,24 +93,11 @@ html[dir="rtl"] .plan-badge {
     unicode-bidi: plaintext;
 }
 
-/* ==================================================
-   NAVBAR
-   ================================================== */
-
-html[dir="rtl"] .navbar-nav {
-    margin-right: auto;
-    margin-left: 0;
-}
-
-html[dir="rtl"] .navbar-brand {
-    margin-left: 1rem;
-    margin-right: 0;
-}
-
-html[dir="rtl"] .navbar-toggler {
-    margin-left: 0;
-    margin-right: auto;
-}
+/* Navbar-specific mirroring lives in one place — the "NAVBAR MIRROR"
+   section near the end of this file — instead of being split across
+   two spots that could disagree with each other. It's kept .mx-auto
+   centered (per the markup) rather than pinned to one edge, so no
+   margin overrides are needed here. */
 
 /* ==================================================
    NAV LINK UNDERLINE
@@ -304,9 +291,10 @@ html[dir="rtl"] iframe {
    FLEX UTILITIES — targeted only (global .d-flex reversal breaks Bootstrap)
    ================================================== */
 
-html[dir="rtl"] .navbar-nav {
-    flex-direction: row-reverse;
-}
+/* .navbar-nav's flex-direction is handled responsively in the
+   "NAVBAR MIRROR" section near the end of this file (row-reverse on
+   desktop, column on the collapsed mobile/tablet menu) rather than
+   here, since a single unscoped rule can't be correct at both. */
 
 html[dir="rtl"] .footer-bottom {
     flex-direction: row-reverse;
@@ -435,63 +423,44 @@ html[dir="rtl"] #rtlToggle .rtl-toggle-label {
 }
 
 /* ==================================================
-   NAVBAR STABILITY OVERRIDE
-   The navbar's own layout (logo left, links/toggler
-   right, collapsed menu order) should never change
-   when RTL is toggled — only the page content flips.
-   Placed last so it wins over the earlier navbar
-   rules above regardless of screen size.
+   NAVBAR MIRROR
+   Full RTL mirror: the logo moves to the right side,
+   the hamburger toggler moves to the left with it, and
+   the nav links + theme toggle + Login/Book Now reverse
+   order so Login/Book Now end up on the left. Placed
+   last so it wins over the earlier navbar rules above.
    ================================================== */
 
-html[dir="rtl"] .navbar,
-html[dir="rtl"] .navbar .container,
-html[dir="rtl"] .navbar-brand,
-html[dir="rtl"] .navbar-toggler {
-    direction: ltr;
-    text-align: left;
-}
-
-html[dir="rtl"] .navbar-nav {
-    flex-direction: row;
-    margin-left: auto;
-    margin-right: 0;
+html[dir="rtl"] .navbar .container {
+    flex-direction: row-reverse;
 }
 
 html[dir="rtl"] .navbar-brand {
-    margin-right: 1rem;
-    margin-left: 0;
-}
-
-html[dir="rtl"] .navbar-toggler {
-    margin-left: auto;
     margin-right: 0;
+    margin-left: 1rem;
 }
 
-html[dir="rtl"] .navbar .ms-auto {
-    margin-left: auto !important;
-    margin-right: 0 !important;
-}
-
-/* Desktop: nav links stay left-to-right, matching the logo/toggler */
-@media (min-width: 992px) {
-    html[dir="rtl"] .navbar-nav .nav-link,
-    html[dir="rtl"] .navbar-nav .dropdown-menu {
-        direction: ltr;
-        text-align: left;
+/* Desktop (navbar-expand-xl, so ≥1200px): reverse the nav-links +
+   theme toggle + Login/Book Now row so it reads as a mirror image
+   of the LTR layout, while .mx-auto (in the markup) keeps it
+   centered between the logo and the edge exactly as before. */
+@media (min-width: 1200px) {
+    html[dir="rtl"] .navbar-nav {
+        flex-direction: row-reverse;
     }
 }
 
-/* Mobile: keep the menu's item order and the logo/hamburger fixed,
-   but let each link's text align right so RTL is still visible
-   when the collapsed menu is opened */
-@media (max-width: 991.98px) {
+/* Mobile/tablet (collapsed hamburger menu, below 1200px): the menu
+   drops down as a vertical list — reversing that vertically would
+   be confusing, so keep top-to-bottom order as-is and just right-
+   align each link's text so RTL is still visible when it's open. */
+@media (max-width: 1199.98px) {
     html[dir="rtl"] .navbar-nav {
         flex-direction: column;
     }
 
     html[dir="rtl"] .navbar-collapse,
     html[dir="rtl"] .navbar-nav .nav-link {
-        direction: rtl;
         text-align: right;
     }
 }
