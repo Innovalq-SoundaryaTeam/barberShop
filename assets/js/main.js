@@ -324,6 +324,19 @@ const initializeContactForm = () => {
 
     if (!form) return;
 
+    // Phone Number should only ever contain digits, capped at 10 — strip
+    // anything else as the person types instead of waiting until submit
+    // to reject it, so letters/symbols can't be typed into the field at all.
+    const phoneField = document.getElementById('phone');
+
+    if (phoneField) {
+        phoneField.addEventListener('input', () => {
+            phoneField.value = phoneField.value
+                .replace(/\D/g, '')
+                .slice(0, 10);
+        });
+    }
+
     form.addEventListener('submit', (event) => {
 
         event.preventDefault();
@@ -515,7 +528,7 @@ const validateEmail = (email) => {
 const validatePhone = (phone) => {
 
     const pattern =
-        /^[0-9+\-\s()]{7,20}$/;
+        /^[0-9]{10}$/;
 
     return pattern.test(phone);
 };

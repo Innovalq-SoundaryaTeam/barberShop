@@ -263,12 +263,14 @@
                                             type="tel"
                                             class="form-control"
                                             id="phone"
-                                            pattern="[0-9+\-\s()]{7,20}"
+                                            inputmode="numeric"
+                                            maxlength="10"
+                                            pattern="[0-9]{10}"
                                             required>
 
                                         <div class="invalid-feedback">
 
-                                            Please enter a valid phone number.
+                                            Please enter a valid 10-digit phone number.
 
                                         </div>
 
