@@ -1724,7 +1724,7 @@ body.light-mode .rtl-floating-toggle {
 }
 
 .team-stat-card{
-    background:#1b1b1b;
+    background:var(--color-card);
     padding:2rem;
     border-radius:20px;
     text-align:center;
@@ -1850,7 +1850,7 @@ body.light-mode .rtl-floating-toggle {
 /* Awards */
 
 .award-card{
-    background:#1b1b1b;
+    background:var(--color-card);
     padding:2rem;
     border-radius:20px;
     text-align:center;
