@@ -25,6 +25,33 @@ html[dir="rtl"] a,
 html[dir="rtl"] span,
 html[dir="rtl"] label {
     text-align: right;
+
+    /* The page content is still English, not translated — only the
+       layout is being demoed as RTL. Without this, the inherited
+       direction:rtl from <body> makes the browser's bidi algorithm
+       treat trailing punctuation (a period, for example) as part of
+       an RTL paragraph, so it visually jumps to the front of the
+       sentence instead of staying at the end ("Professional grooming
+       services..." became ".Professional grooming services...").
+       unicode-bidi: plaintext makes each element detect its own
+       paragraph direction from its actual (English/LTR) content, so
+       punctuation stays in natural reading order while text-align:
+       right still gives the intended right-aligned RTL layout. */
+    unicode-bidi: plaintext;
+}
+
+/* Same fix as above, for the text-bearing tags that weren't in the
+   main list (blockquote/small/table cells/buttons/etc.) so the
+   punctuation-jumping bug can't resurface anywhere else on the site. */
+html[dir="rtl"] small,
+html[dir="rtl"] blockquote,
+html[dir="rtl"] td,
+html[dir="rtl"] th,
+html[dir="rtl"] dd,
+html[dir="rtl"] dt,
+html[dir="rtl"] figcaption,
+html[dir="rtl"] button {
+    unicode-bidi: plaintext;
 }
 
 /* ==================================================
