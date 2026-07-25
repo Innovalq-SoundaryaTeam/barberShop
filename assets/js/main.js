@@ -245,6 +245,28 @@ const initializeRTLToggle = () => {
     window.addEventListener('load', positionRTLToggle);
     window.addEventListener('orientationchange', positionRTLToggle);
 
+    // On mobile/tablet widths the navbar's collapsed menu drops down
+    // and grows the navbar well past the height it had when closed,
+    // but opening it doesn't fire a 'resize' event — so the floating
+    // button stayed put at the "closed" height and ended up sitting
+    // on top of the open menu instead of below everything. Simplest
+    // fix: just hide it while the mobile menu is open, and reposition
+    // it correctly once it's closed again.
+    const mobileMenu = document.getElementById('mainNavbar');
+
+    if (mobileMenu) {
+        mobileMenu.addEventListener('show.bs.collapse', () => {
+            button.style.visibility = 'hidden';
+        });
+        mobileMenu.addEventListener('hide.bs.collapse', () => {
+            button.style.visibility = 'hidden';
+        });
+        mobileMenu.addEventListener('hidden.bs.collapse', () => {
+            positionRTLToggle();
+            button.style.visibility = '';
+        });
+    }
+
     const label = button.querySelector('.rtl-toggle-label');
 
     const applyDirection = (dir) => {
@@ -290,11 +312,31 @@ const initializeContactForm = () => {
     form.addEventListener('submit', (event) => {
 
         event.preventDefault();
+        event.stopPropagation();
 
         clearErrors();
         hideFormMessage(form);
 
-        let isValid = true;
+        // Every field with a `required`/`pattern` attribute (Name,
+        // Email, Phone, Subject, Message) is checked here via native
+        // constraint validation — not just Message. Invalid fields
+        // get a red outline plus their matching .invalid-feedback
+        // text once .was-validated is applied, same pattern already
+        // used on the admin Add/Edit forms elsewhere in the site.
+        if (!form.checkValidity()) {
+
+            form.classList.add('was-validated');
+
+            const firstInvalid = form.querySelector(':invalid');
+
+            if (firstInvalid) {
+                firstInvalid.focus();
+            }
+
+            return;
+        }
+
+        form.classList.add('was-validated');
 
         const name =
             document.getElementById('name');
@@ -308,83 +350,26 @@ const initializeContactForm = () => {
         const subject =
             document.getElementById('subject');
 
-        const service =
-            document.getElementById('service');
-
         const message =
             document.getElementById('message');
 
-        if (name && !name.value.trim()) {
-            showError(
-                name,
-                'Name is required.'
-            );
-            isValid = false;
-        }
+        saveContactSubmission({
+            name: name ? name.value.trim() : '',
+            email: email ? email.value.trim() : '',
+            phone: phone ? phone.value.trim() : '',
+            subject: subject ? subject.value.trim() : '',
+            service: '',
+            message: message ? message.value.trim() : ''
+        });
 
-        if (email && !validateEmail(email.value.trim())) {
-            showError(
-                email,
-                'Please enter a valid email address.'
-            );
-            isValid = false;
-        }
+        showFormMessage(
+            form,
+            'success',
+            "Thank you! Your message has been sent successfully. Our team will get back to you shortly."
+        );
 
-        if (phone && phone.hasAttribute('required') &&
-            !validatePhone(phone.value.trim())) {
-            showError(
-                phone,
-                'Please enter a valid phone number.'
-            );
-            isValid = false;
-        }
-
-        if (subject && subject.hasAttribute('required') &&
-            !subject.value.trim()) {
-            showError(
-                subject,
-                'Subject is required.'
-            );
-            isValid = false;
-        }
-
-        if (service && service.hasAttribute('required') &&
-            !service.value) {
-            showError(
-                service,
-                'Please select a service.'
-            );
-            isValid = false;
-        }
-
-        if (message && !message.value.trim()) {
-            showError(
-                message,
-                'Message is required.'
-            );
-            isValid = false;
-        }
-
-        if (isValid) {
-
-            saveContactSubmission({
-                name: name ? name.value.trim() : '',
-                email: email ? email.value.trim() : '',
-                phone: phone ? phone.value.trim() : '',
-                subject: subject ? subject.value.trim() : '',
-                service: service ? service.value : '',
-                message: message ? message.value.trim() : ''
-            });
-
-            showFormMessage(
-                form,
-                'success',
-                "Thank you! Your message has been sent successfully. Our team will get back to you shortly."
-            );
-
-            form.reset();
-            form.classList.remove('was-validated');
-        }
+        form.reset();
+        form.classList.remove('was-validated');
 
     });
 };

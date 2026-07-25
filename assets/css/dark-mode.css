@@ -18,8 +18,18 @@ body.light-mode p,
 body.light-mode li,
 body.light-mode span,
 body.light-mode label,
-body.light-mode small {
+body.light-mode small,
+body.light-mode blockquote,
+body.light-mode figcaption,
+body.light-mode td,
+body.light-mode th,
+body.light-mode dd,
+body.light-mode dt {
     color: var(--color-text);
+}
+
+body.light-mode .blog-single blockquote {
+    background: rgba(0, 0, 0, .035);
 }
 
 body.light-mode h1,

@@ -940,17 +940,14 @@ body.light-mode .hero-content p {
     }
 }
 
-/* At 992-1024px there isn't enough room for the brand + 7 links +
-   theme toggle + Login/Book Now buttons on one horizontal row —
-   they used to crowd, wrap unevenly, or overlap. Rather than keep
-   shrinking fonts to force everything to fit, the navbar now uses
-   .navbar-expand-xl (see markup) so it stays in the collapsed
-   hamburger-menu layout all the way up to 1200px, and only switches
-   to the horizontal layout once there's genuinely enough width for
-   it. The rules below just make sure the collapsed menu itself is
-   comfortably spaced at these wider (tablet/small-laptop) sizes,
-   since it's no longer only used on phones. */
-@media (min-width: 768px) and (max-width: 1199px) {
+/* Below 1200px the navbar is in its collapsed hamburger-menu layout
+   (see .navbar-expand-xl in the markup), stacking the nav links,
+   theme toggle, Login and Book Now vertically. Bootstrap doesn't add
+   any gap between those stacked <li> items on its own, so on phones
+   (below 768px) Login/Book Now previously sat flush against the
+   links above them with no breathing room — this now applies at
+   every collapsed width, not just tablet/small-laptop. */
+@media (max-width: 1199px) {
 
     .navbar-collapse {
         margin-top: 16px;
@@ -1394,6 +1391,32 @@ body.light-mode .rtl-floating-toggle {
 .blog-search{
     max-width:600px;
     margin:0 auto;
+}
+
+/* The search input (border-radius: var(--radius-sm)) and the pill-
+   shaped .btn-barber (border-radius: 50px) each round all four of
+   their own corners independently, so sitting side by side in an
+   .input-group they don't actually connect — the button reads as a
+   separate floating pill instead of joining the input. Rounding the
+   shared container instead and clipping the children to it guarantees
+   a single seamless pill regardless of each child's own radius. */
+.blog-search .input-group,
+.sidebar-search .input-group {
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.blog-search .input-group .form-control,
+.sidebar-search .input-group .form-control {
+    border-radius: 0;
+    border-right: none;
+}
+
+.blog-search .input-group .btn,
+.sidebar-search .input-group .btn {
+    border-radius: 0;
+    padding-left: 26px;
+    padding-right: 26px;
 }
 
 
@@ -2184,6 +2207,38 @@ body.light-mode .rtl-floating-toggle {
 .newsletter-form{
     max-width:650px;
     margin:0 auto 3rem;
+}
+
+/* Same input+button disconnect as the blog search bar: the rounded
+   .form-control and the pill-shaped .btn-barber don't visually join
+   inside the input-group on their own, so the Subscribe button reads
+   as a separate floating pill. Round/clip the shared container
+   instead so it's a single seamless pill everywhere this pattern is
+   used (footer newsletter signup + the coming-soon page). */
+.newsletter-form .input-group {
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.newsletter-form .input-group .form-control {
+    border-radius: 0;
+    border-right: none;
+}
+
+.newsletter-form .input-group .btn {
+    border-radius: 0;
+    padding-left: 22px;
+    padding-right: 22px;
+    white-space: nowrap;
+}
+
+/* Inside the narrow footer column, .newsletter-form's own
+   max-width/margin (meant for the wider coming-soon page block)
+   just adds unwanted centering/spacing — let it fill the column
+   like every other footer element instead. */
+.footer .newsletter-form {
+    max-width: none;
+    margin: 0;
 }
 
 .coming-social{

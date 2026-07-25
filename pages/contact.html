@@ -262,7 +262,15 @@
                                         <input
                                             type="tel"
                                             class="form-control"
-                                            id="phone">
+                                            id="phone"
+                                            pattern="[0-9+\-\s()]{7,20}"
+                                            required>
+
+                                        <div class="invalid-feedback">
+
+                                            Please enter a valid phone number.
+
+                                        </div>
 
                                     </div>
 
