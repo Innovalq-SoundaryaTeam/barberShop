@@ -13,6 +13,37 @@ html[dir="rtl"] body {
    TYPOGRAPHY
    ================================================== */
 
+/* RULE OF THUMB FOR THIS WHOLE FILE:
+   content that is CENTERED in the normal (LTR) design — section
+   titles/subtitles, page banners, CTA banners, testimonial cards,
+   hero text using .text-center, etc. — must stay centered and NOT
+   move when RTL is toggled. Only content that is naturally
+   left-aligned in the LTR design (body paragraphs, list items, form
+   labels, footer columns, nav/dropdown menus, sidebar links...)
+   should flip over to the right. Headings/paragraphs are therefore
+   NOT blanket-forced to text-align:right here — most of them are
+   already text-align:center from the base stylesheet and simply
+   keeping that untouched is the correct RTL behavior for them. */
+
+html[dir="rtl"] li,
+html[dir="rtl"] a,
+html[dir="rtl"] span,
+html[dir="rtl"] label {
+    text-align: right;
+}
+
+/* The page content is still English, not translated — only the
+   layout is being demoed as RTL. Without this, the inherited
+   direction:rtl from <body> makes the browser's bidi algorithm treat
+   trailing punctuation (a period, for example) as part of an RTL
+   paragraph, so it visually jumps to the front of the sentence
+   instead of staying at the end ("Professional grooming services..."
+   became ".Professional grooming services..."). unicode-bidi:
+   plaintext makes each element detect its own paragraph direction
+   from its actual (English/LTR) content, so punctuation stays in
+   natural reading order everywhere — including centered text, which
+   is why this is applied broadly on its own, separately from the
+   text-align flip above. */
 html[dir="rtl"] h1,
 html[dir="rtl"] h2,
 html[dir="rtl"] h3,
@@ -23,40 +54,7 @@ html[dir="rtl"] p,
 html[dir="rtl"] li,
 html[dir="rtl"] a,
 html[dir="rtl"] span,
-html[dir="rtl"] label {
-    text-align: right;
-
-    /* The page content is still English, not translated — only the
-       layout is being demoed as RTL. Without this, the inherited
-       direction:rtl from <body> makes the browser's bidi algorithm
-       treat trailing punctuation (a period, for example) as part of
-       an RTL paragraph, so it visually jumps to the front of the
-       sentence instead of staying at the end ("Professional grooming
-       services..." became ".Professional grooming services...").
-       unicode-bidi: plaintext makes each element detect its own
-       paragraph direction from its actual (English/LTR) content, so
-       punctuation stays in natural reading order while text-align:
-       right still gives the intended right-aligned RTL layout. */
-    unicode-bidi: plaintext;
-}
-
-/* .section-title p (the subtitle under every section heading, e.g.
-   "Skilled professionals dedicated to delivering exceptional
-   grooming experiences.") is capped at max-width:700px and centered
-   on the page via margin:auto in the base (non-RTL) stylesheet.
-   text-align:right above only right-aligns the text INSIDE that
-   700px box — the box itself stays dead-center regardless of RTL,
-   so the line barely looks like it moved. Push the box itself over
-   to the right edge of its container so it visibly shifts right,
-   matching every other full-width right-aligned paragraph. */
-html[dir="rtl"] .section-title p {
-    margin-left: auto;
-    margin-right: 0;
-}
-
-/* Same fix as above, for the text-bearing tags that weren't in the
-   main list (blockquote/small/table cells/buttons/etc.) so the
-   punctuation-jumping bug can't resurface anywhere else on the site. */
+html[dir="rtl"] label,
 html[dir="rtl"] small,
 html[dir="rtl"] blockquote,
 html[dir="rtl"] td,
@@ -66,6 +64,15 @@ html[dir="rtl"] dt,
 html[dir="rtl"] figcaption,
 html[dir="rtl"] button {
     unicode-bidi: plaintext;
+}
+
+/* The only two places the base stylesheet explicitly left-aligns
+   text (everything else is either centered-by-design or already
+   left by default/inherited) — flip these two to match every other
+   naturally-left block. */
+html[dir="rtl"] .service-features,
+html[dir="rtl"] .section-title.text-start {
+    text-align: right;
 }
 
 /* ==================================================
@@ -129,9 +136,11 @@ html[dir="rtl"] .service-icon {
    CARDS
    ================================================== */
 
-html[dir="rtl"] .card-body-custom {
-    text-align: right;
-}
+/* .card-body-custom is always used with Bootstrap's .text-center
+   (!important) in the markup, so it's centered by design in every
+   real usage — no RTL override needed, and forcing text-align:right
+   here would fight that centering on any future usage that isn't
+   explicitly marked .text-center. */
 
 /* ==================================================
    FORMS
@@ -241,9 +250,8 @@ html[dir="rtl"] .blog-filters {
    TESTIMONIALS
    ================================================== */
 
-html[dir="rtl"] .testimonial-card {
-    text-align: right;
-}
+/* .testimonial-card is text-align:center in the base stylesheet —
+   stays centered in RTL too, so intentionally no override here. */
 
 /* ==================================================
    CTA BANNER
