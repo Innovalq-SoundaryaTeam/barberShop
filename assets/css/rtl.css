@@ -75,6 +75,24 @@ html[dir="rtl"] .section-title.text-start {
     text-align: right;
 }
 
+/* A handful of components mix a number with a text label as two
+   separate inline pieces inside the same block (e.g. `<div
+   class="price">₹1000 <span>/visit</span></div>` or `<div><strong>
+   12+</strong> Years Experience</div>`). unicode-bidi:plaintext on
+   just the inner <span>/<strong> isn't enough to stop this — the
+   reordering happens at the level of the block that contains BOTH
+   pieces, so it needs to go on the container itself. Without it,
+   RTL's inherited direction reverses the visual order of those two
+   pieces ("₹1000 /visit" was rendering as "/visit ₹1000") even
+   though this text-align/order fix is only meant to move the card
+   itself, not scramble the words inside it. */
+html[dir="rtl"] .price,
+html[dir="rtl"] .hero-mini-stats div,
+html[dir="rtl"] .service-price-tag,
+html[dir="rtl"] .plan-badge {
+    unicode-bidi: plaintext;
+}
+
 /* ==================================================
    NAVBAR
    ================================================== */
