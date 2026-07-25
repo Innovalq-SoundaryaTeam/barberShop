@@ -40,6 +40,20 @@ html[dir="rtl"] label {
     unicode-bidi: plaintext;
 }
 
+/* .section-title p (the subtitle under every section heading, e.g.
+   "Skilled professionals dedicated to delivering exceptional
+   grooming experiences.") is capped at max-width:700px and centered
+   on the page via margin:auto in the base (non-RTL) stylesheet.
+   text-align:right above only right-aligns the text INSIDE that
+   700px box — the box itself stays dead-center regardless of RTL,
+   so the line barely looks like it moved. Push the box itself over
+   to the right edge of its container so it visibly shifts right,
+   matching every other full-width right-aligned paragraph. */
+html[dir="rtl"] .section-title p {
+    margin-left: auto;
+    margin-right: 0;
+}
+
 /* Same fix as above, for the text-bearing tags that weren't in the
    main list (blockquote/small/table cells/buttons/etc.) so the
    punctuation-jumping bug can't resurface anywhere else on the site. */
