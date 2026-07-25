@@ -1316,6 +1316,16 @@ body.light-mode .rtl-floating-toggle {
     border:1px solid rgba(255,255,255,.08);
 }
 
+/* Match the Service Packages cards above (.pricing-header is
+   text-align:center) so the plan name + price read the same way in
+   both pricing sections on this page — previously these had no
+   text-align at all and fell back to left, which looked inconsistent
+   next to the centered Basic/Premium/Deluxe cards. */
+.membership-card h3,
+.membership-card h4{
+    text-align:center;
+}
+
 .membership-card ul{
     padding-left:1.2rem;
     margin-bottom:2rem;
