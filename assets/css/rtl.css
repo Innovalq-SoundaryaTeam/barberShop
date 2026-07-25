@@ -93,11 +93,15 @@ html[dir="rtl"] .plan-badge {
     unicode-bidi: plaintext;
 }
 
-/* Navbar-specific mirroring lives in one place — the "NAVBAR MIRROR"
+/* Navbar-specific spacing lives in one place — the "NAVBAR MIRROR"
    section near the end of this file — instead of being split across
-   two spots that could disagree with each other. It's kept .mx-auto
-   centered (per the markup) rather than pinned to one edge, so no
-   margin overrides are needed here. */
+   two spots that could disagree with each other. The mirror itself
+   (logo/links/buttons flipping sides) needs no rule here at all: it
+   happens automatically because `direction: rtl` is inherited all
+   the way down to the navbar's flex containers, and a browser's
+   native `flex-direction: row` layout flips its start/end sides
+   whenever the inherited direction is RTL. See the NAVBAR MIRROR
+   section for details. */
 
 /* ==================================================
    NAV LINK UNDERLINE
@@ -426,13 +430,27 @@ html[dir="rtl"] #rtlToggle .rtl-toggle-label {
    NAVBAR MIRROR
    The logo moving to the right, the toggler moving with
    it, and the nav-links/theme-toggle/Login/Book-Now row
-   reversing is all done by physically reordering the DOM
-   nodes in JS — see mirrorNavbar() in main.js. A pure CSS
-   flex-direction: row-reverse was tried first, but
-   Bootstrap's navbar layout (justify-content:space-between
-   combined with flex-grow on the collapse panel) made that
-   produce no visible change, so this file only covers what
-   CSS still needs to: text alignment and spacing.
+   reversing all happen automatically, with no extra CSS
+   rule and no JS DOM reordering needed. `direction: rtl`
+   is set on <body> above and, being an inherited property,
+   flows down through .navbar > .container (flex,
+   justify-content: space-between) and #mainNavbar
+   .navbar-nav (flex-direction: row at the ≥1200px
+   navbar-expand-xl breakpoint). Per the CSS flexbox spec,
+   a `flex-direction: row` container's main-axis start/end
+   are tied to the inline direction — in RTL, "start" is the
+   right edge instead of the left — so the browser flips the
+   whole row on its own. (An earlier version of this file
+   tried `flex-direction: row-reverse` on top of that, which
+   was a second, redundant flip that cancelled the first one
+   back out and looked like nothing was happening; an even
+   earlier version physically reordered the DOM nodes in JS,
+   which fought the browser's own automatic flip the same
+   way. Verified against https://ironpulse-ivory.vercel.app/,
+   whose navbar mirrors identically — dir="rtl" only, default
+   flex-direction: row, untouched DOM order.) This section
+   only covers what CSS still needs to add on top: spacing
+   and the collapsed mobile/tablet menu's text alignment.
    ================================================== */
 
 html[dir="rtl"] .navbar-brand {
