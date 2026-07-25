@@ -424,30 +424,20 @@ html[dir="rtl"] #rtlToggle .rtl-toggle-label {
 
 /* ==================================================
    NAVBAR MIRROR
-   Full RTL mirror: the logo moves to the right side,
-   the hamburger toggler moves to the left with it, and
-   the nav links + theme toggle + Login/Book Now reverse
-   order so Login/Book Now end up on the left. Placed
-   last so it wins over the earlier navbar rules above.
+   The logo moving to the right, the toggler moving with
+   it, and the nav-links/theme-toggle/Login/Book-Now row
+   reversing is all done by physically reordering the DOM
+   nodes in JS — see mirrorNavbar() in main.js. A pure CSS
+   flex-direction: row-reverse was tried first, but
+   Bootstrap's navbar layout (justify-content:space-between
+   combined with flex-grow on the collapse panel) made that
+   produce no visible change, so this file only covers what
+   CSS still needs to: text alignment and spacing.
    ================================================== */
-
-html[dir="rtl"] .navbar .container {
-    flex-direction: row-reverse;
-}
 
 html[dir="rtl"] .navbar-brand {
     margin-right: 0;
     margin-left: 1rem;
-}
-
-/* Desktop (navbar-expand-xl, so ≥1200px): reverse the nav-links +
-   theme toggle + Login/Book Now row so it reads as a mirror image
-   of the LTR layout, while .mx-auto (in the markup) keeps it
-   centered between the logo and the edge exactly as before. */
-@media (min-width: 1200px) {
-    html[dir="rtl"] .navbar-nav {
-        flex-direction: row-reverse;
-    }
 }
 
 /* Mobile/tablet (collapsed hamburger menu, below 1200px): the menu
@@ -455,10 +445,6 @@ html[dir="rtl"] .navbar-brand {
    be confusing, so keep top-to-bottom order as-is and just right-
    align each link's text so RTL is still visible when it's open. */
 @media (max-width: 1199.98px) {
-    html[dir="rtl"] .navbar-nav {
-        flex-direction: column;
-    }
-
     html[dir="rtl"] .navbar-collapse,
     html[dir="rtl"] .navbar-nav .nav-link {
         text-align: right;

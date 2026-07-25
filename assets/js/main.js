@@ -269,10 +269,88 @@ const initializeRTLToggle = () => {
 
     const label = button.querySelector('.rtl-toggle-label');
 
+    // CSS alone (flex-direction: row-reverse on the navbar's flex
+    // containers) turned out not to visibly reorder anything —
+    // Bootstrap's navbar layout combines justify-content:space-between
+    // with flex-grow on the collapse area in a way that no CSS-only
+    // reversal actually moved the logo or nav items. Reordering the
+    // actual DOM nodes sidesteps that entirely and is guaranteed to
+    // show up regardless of whatever Bootstrap is doing internally.
+    const mirrorNavbar = (isRTL) => {
+
+        // The container has 3 children: [brand, toggler, collapse].
+        // The collapse panel MUST stay the last DOM child at every
+        // breakpoint — that's what makes it wrap onto its own line
+        // below the brand/toggler row when the mobile menu opens.
+        // Reversing all 3 blindly would put collapse first, which
+        // risks the open mobile menu rendering ABOVE the logo instead
+        // of below it. So brand/toggler/collapse are repositioned
+        // explicitly instead of with a generic array reverse:
+        //   LTR             : brand, toggler, collapse
+        //   RTL desktop     : toggler, collapse, brand  (brand → far right)
+        //   RTL mobile/tablet: toggler, brand, collapse (collapse stays last)
+        const container = document.querySelector('.navbar .container');
+        const brand = document.querySelector('.navbar-brand');
+        const toggler = document.querySelector('.navbar-toggler');
+        const collapseEl = document.getElementById('mainNavbar');
+
+        if (container && brand && toggler && collapseEl) {
+
+            const isDesktop = window.innerWidth >= 1200;
+            const want = !isRTL ? 'ltr' : (isDesktop ? 'rtl-desktop' : 'rtl-mobile');
+
+            if (container.dataset.navOrder !== want) {
+
+                if (want === 'ltr') {
+                    container.appendChild(brand);
+                    container.appendChild(toggler);
+                    container.appendChild(collapseEl);
+                } else if (want === 'rtl-desktop') {
+                    container.appendChild(toggler);
+                    container.appendChild(collapseEl);
+                    container.appendChild(brand);
+                } else {
+                    container.appendChild(toggler);
+                    container.appendChild(brand);
+                    container.appendChild(collapseEl);
+                }
+
+                container.dataset.navOrder = want;
+            }
+        }
+
+        // Only mirror the nav-links/theme-toggle/Login/Book-Now row on
+        // the desktop horizontal layout (navbar-expand-xl, ≥1200px).
+        // On the collapsed mobile/tablet menu it stays a vertical list
+        // top-to-bottom — reversing that would just be confusing — so
+        // it's re-evaluated on resize in case the viewport crosses the
+        // 1200px breakpoint while open.
+        const navList = document.querySelector('#mainNavbar .navbar-nav');
+
+        if (navList) {
+            if (navList.dataset.rtlMirrored === undefined) {
+                navList.dataset.rtlMirrored = 'false';
+            }
+            const shouldMirror = isRTL && window.innerWidth >= 1200;
+            const want = shouldMirror ? 'true' : 'false';
+            if (navList.dataset.rtlMirrored !== want) {
+                Array.from(navList.children)
+                    .reverse()
+                    .forEach(el => navList.appendChild(el));
+                navList.dataset.rtlMirrored = want;
+            }
+        }
+    };
+
     const applyDirection = (dir) => {
         document.documentElement.setAttribute('dir', dir);
         label.textContent = dir === 'rtl' ? 'RTL' : 'LTR';
+        mirrorNavbar(dir === 'rtl');
     };
+
+    window.addEventListener('resize', () => {
+        mirrorNavbar(document.documentElement.getAttribute('dir') === 'rtl');
+    });
 
     let savedDir = 'ltr';
 
