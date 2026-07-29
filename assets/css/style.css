@@ -1359,9 +1359,20 @@ body.light-mode .hero-content p {
 }
 
 .membership-card ul{
-    padding-left:0;
-    margin-bottom:2rem;
-    list-style-position:inside;
+    /* list-style-position:inside centers each bullet+text line as its
+       own independent unit, so a bullet's horizontal position drifts
+       left/right depending on how long that particular line's text is
+       — "2 Haircuts Per Month" and "Priority Scheduling" ended up with
+       bullets at different x-positions instead of a straight column.
+       display:inline-block + text-align:left keeps the bullets in one
+       straight column (like a normal left-aligned list) while the
+       parent's text-align:center still centers the list as a whole
+       block within the card. */
+    display:inline-block;
+    text-align:left;
+    list-style-position:outside;
+    padding-left:1.2rem;
+    margin:0 auto 2rem;
 }
 
 .membership-card > .btn{
