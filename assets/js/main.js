@@ -213,58 +213,34 @@ const initializeRTLToggle = () => {
     // than let it silently break those layouts.
     if (!document.querySelector('link[href*="rtl.css"]')) return;
 
-    // Standalone floating button, fixed to the corner of the viewport.
-    // Deliberately kept OUT of the navbar so it never touches/alters
-    // the navbar's own layout on any screen size.
+    // Lives inside the navbar now, right next to the theme toggle, as a
+    // normal nav item — not a floating button pinned to the viewport.
+    // That earlier floating version needed a pile of extra logic (measuring
+    // navbar height to avoid overlapping it, hiding itself while the mobile
+    // menu was open, repositioning on resize/orientation change) just to
+    // work around the fact that it lived outside the navbar's own layout.
+    // Placing it in the nav sidesteps all of that: it flows and collapses
+    // together with Theme/Login/Book Now automatically on every screen size.
+    const themeItem = document.querySelector('.navbar-nav .ms-lg-3');
+
     const button = document.createElement('button');
     button.id = 'rtlToggle';
     button.type = 'button';
-    button.className = 'rtl-floating-toggle';
+    button.className = 'btn btn-outline-barber btn-sm rtl-nav-toggle';
     button.setAttribute('aria-label', 'Toggle Right-To-Left Layout');
     button.setAttribute('title', 'Switch Layout Direction');
     button.innerHTML =
         '<i class="fas fa-globe"></i><span class="rtl-toggle-label">LTR</span>';
 
-    document.body.appendChild(button);
-
-    // The navbar's actual height varies by screen size (collapsed
-    // hamburger vs. expanded horizontal layout, wrapped nav items,
-    // etc.), so a single fixed "top" value in CSS can't reliably sit
-    // just below it on every viewport — it ends up overlapping the
-    // navbar at some widths. Measure the real navbar height instead
-    // and position the floating button just underneath it, recomputed
-    // whenever the layout changes.
-    const positionRTLToggle = () => {
-        const navbar = document.querySelector('.navbar');
-        if (!navbar) return;
-        button.style.top = (navbar.getBoundingClientRect().height + 12) + 'px';
-    };
-
-    positionRTLToggle();
-    window.addEventListener('resize', positionRTLToggle);
-    window.addEventListener('load', positionRTLToggle);
-    window.addEventListener('orientationchange', positionRTLToggle);
-
-    // On mobile/tablet widths the navbar's collapsed menu drops down
-    // and grows the navbar well past the height it had when closed,
-    // but opening it doesn't fire a 'resize' event — so the floating
-    // button stayed put at the "closed" height and ended up sitting
-    // on top of the open menu instead of below everything. Simplest
-    // fix: just hide it while the mobile menu is open, and reposition
-    // it correctly once it's closed again.
-    const mobileMenu = document.getElementById('mainNavbar');
-
-    if (mobileMenu) {
-        mobileMenu.addEventListener('show.bs.collapse', () => {
-            button.style.visibility = 'hidden';
-        });
-        mobileMenu.addEventListener('hide.bs.collapse', () => {
-            button.style.visibility = 'hidden';
-        });
-        mobileMenu.addEventListener('hidden.bs.collapse', () => {
-            positionRTLToggle();
-            button.style.visibility = '';
-        });
+    if (themeItem) {
+        const rtlLi = document.createElement('li');
+        rtlLi.className = 'nav-item ms-lg-2';
+        rtlLi.appendChild(button);
+        themeItem.insertAdjacentElement('afterend', rtlLi);
+    } else {
+        // Fallback for any page missing the theme toggle for some reason —
+        // still show the switch rather than lose the feature entirely.
+        document.body.appendChild(button);
     }
 
     const label = button.querySelector('.rtl-toggle-label');

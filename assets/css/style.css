@@ -258,10 +258,31 @@ select:focus {
 }
 
 .navbar-nav .nav-link.active::after {
-    width: 100%;
+    /* A short, centered bar reads as a cleaner "current page" marker
+       than a full-width underline matching the text length. */
+    width: 22px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 
+
+/* Bootstrap's built-in dropdown-toggle::after caret can't be used here —
+   .nav-link::after is already used for the hover/active underline bar on
+   the SAME pseudo-element, and since both rules have equal specificity,
+   whichever loads later wins for every property it sets, silently
+   overwriting the caret's triangle shape with the underline bar instead
+   of the two combining. A real <i> element sidesteps that collision
+   entirely and is also easier to size/rotate than a border-triangle. */
+.dropdown-caret {
+    font-size: .65rem;
+    margin-left: 5px;
+    transition: transform .25s ease;
+}
+
+.dropdown-toggle.show .dropdown-caret {
+    transform: rotate(180deg);
+}
 
 .navbar-toggler{
     border-color: var(--color-primary);
@@ -739,6 +760,22 @@ body.light-mode .hero-content p {
     border-radius: var(--radius-md);
     padding: 30px;
     text-align: center;
+    /* Bootstrap rows default to align-items:stretch, so columns of a
+       row are already equal height — but this card only fills its OWN
+       content height unless told to fill that stretched column, so
+       shorter quotes left the name sitting at a different vertical
+       position card-to-card in any row of 2+ testimonials (About,
+       Testimonials pages). height:100% makes every card in a row match
+       the tallest one, and the flex column + margin-top:auto on the
+       name (below) then pins the name to the same bottom edge on every
+       card regardless of how long its quote runs. */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial-card h5 {
+    margin-top: auto;
 }
 
 .rating-stars {
@@ -782,6 +819,23 @@ body.light-mode .hero-content p {
 .cta-banner .btn-outline-barber:hover {
     background: #1a1a1a;
     color: var(--color-primary);
+}
+
+/* .btn-barber (e.g. the "Book Online" button) is solid gold by default,
+   same as this banner's own gradient background, so it disappeared into
+   it instead of reading as a distinct, clickable primary action. Giving
+   it the same dark tone already used above for the heading/outline
+   button makes it the one high-contrast element on the banner — the
+   opposite treatment of .btn-outline-barber's hover state, so the two
+   buttons stay visually distinct from each other too. */
+.cta-banner .btn-barber {
+    background: #1a1a1a;
+    color: var(--color-primary);
+}
+
+.cta-banner .btn-barber:hover {
+    background: var(--color-primary);
+    color: #1a1a1a;
 }
 
 .cta-banner:hover {
@@ -1027,45 +1081,22 @@ body.light-mode .hero-content p {
 }
 
 /* ==================================================
-   RTL FLOATING TOGGLE
-   Standalone button fixed to the viewport, independent
-   of the navbar, visible on every screen size.
+   RTL NAV TOGGLE
+   Sits inside the navbar as a normal nav item, right next
+   to the theme (dark/light) toggle button — not a floating
+   button pinned to the viewport, so it collapses into the
+   mobile menu the same way Theme/Login/Book Now do and
+   needs no separate positioning logic.
    ================================================== */
-.rtl-floating-toggle {
-    position: fixed;
-    top: 90px;
-    right: 16px;
-    z-index: 1040;
+.rtl-nav-toggle {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 8px 14px;
-    border-radius: 50px;
-    border: 2px solid var(--color-primary);
-    background: rgba(0,0,0,.85);
-    color: var(--color-primary);
-    font-weight: 600;
-    font-size: .85rem;
-    box-shadow: var(--shadow-md, 0 6px 18px rgba(0,0,0,.35));
-    transition: var(--transition);
+    white-space: nowrap;
 }
 
-.rtl-floating-toggle:hover {
-    background: var(--color-primary);
-    color: #000;
-}
-
-body.light-mode .rtl-floating-toggle {
-    background: rgba(255,255,255,.9);
-}
-
-@media (max-width: 480px) {
-    .rtl-floating-toggle {
-        top: 78px;
-        right: 10px;
-        padding: 6px 10px;
-        font-size: .78rem;
-    }
+.rtl-nav-toggle .rtl-toggle-label {
+    font-size: .78rem;
 }
 
 
@@ -1316,24 +1347,26 @@ body.light-mode .rtl-floating-toggle {
     border:1px solid rgba(255,255,255,.08);
 }
 
-/* Match the Service Packages cards above (.pricing-header is
-   text-align:center) so the plan name + price read the same way in
-   both pricing sections on this page — previously these had no
-   text-align at all and fell back to left, which looked inconsistent
-   next to the centered Basic/Premium/Deluxe cards. */
-.membership-card h3,
-.membership-card h4{
+/* Fully centered to match the Service Packages cards above
+   (.pricing-header + its content are all text-align:center) so the
+   whole card reads the same way in both pricing sections on this
+   page — previously only had no text-align at all and fell back to
+   left/flex-start throughout, which looked inconsistent next to the
+   centered Basic/Premium/Deluxe cards. */
+.membership-card{
     text-align:center;
+    align-items:center;
 }
 
 .membership-card ul{
-    padding-left:1.2rem;
+    padding-left:0;
     margin-bottom:2rem;
+    list-style-position:inside;
 }
 
 .membership-card > .btn{
     margin-top:auto;
-    align-self:flex-start;
+    align-self:center;
 }
 
 .pricing-table{
@@ -2768,6 +2801,16 @@ a:not(.btn):not(.nav-link):not(.navbar-brand):hover {
     font-weight: 600 !important;
     font-size: 1rem;
     letter-spacing: 0.3px;
+}
+
+/* Desktop nav links sat with only 8px of padding on each side, so
+   adjacent links (Home/About/Services/...) touched with almost no
+   breathing room between them. */
+@media (min-width: 1200px) {
+    .navbar-nav .nav-link {
+        padding-left: .85rem !important;
+        padding-right: .85rem !important;
+    }
 }
 
 /* Buttons */
