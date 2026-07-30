@@ -364,6 +364,24 @@ html[dir="rtl"] .ms-3 { margin-right: 1rem !important; margin-left: 0 !important
 html[dir="rtl"] .ms-4 { margin-right: 1.5rem !important; margin-left: 0 !important; }
 html[dir="rtl"] .ms-5 { margin-right: 3rem !important; margin-left: 0 !important; }
 
+/* Brand icon (scissors) immediately followed by "Barber Studio" text
+   keeps its natural left-to-right order in RTL — unicode-bidi:plaintext
+   above detects the English text and keeps icon-then-text order instead
+   of mirroring it. That means the gap between them is still needed on
+   the icon's RIGHT side, but the generic `.me-2` flip below (which
+   assumes the icon visually swaps to the other side of the text)
+   zeroes out margin-right and adds margin-left instead — margin-left
+   on the very first element in the block has nowhere visible to go
+   (it just merges into the empty space from right-alignment), so the
+   icon and text collapsed together with no gap at all. This is more
+   specific (class+type+class) than the plain `.me-2` rule, so it wins
+   regardless of source order. */
+html[dir="rtl"] .navbar-brand i.me-2,
+html[dir="rtl"] .footer h5 i.me-2 {
+    margin-right: 0.5rem !important;
+    margin-left: 0 !important;
+}
+
 html[dir="rtl"] .me-1 { margin-left: .25rem !important; margin-right: 0 !important; }
 html[dir="rtl"] .me-2 { margin-left: .5rem !important; margin-right: 0 !important; }
 html[dir="rtl"] .me-3 { margin-left: 1rem !important; margin-right: 0 !important; }
