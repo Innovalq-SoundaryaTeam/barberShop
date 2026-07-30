@@ -66,37 +66,17 @@ html[dir="rtl"] button {
     unicode-bidi: plaintext;
 }
 
-/* The only other place the base stylesheet explicitly left-aligns
-   text (everything else is either centered-by-design or already left
-   by default/inherited) — flip this one to match every other
-   naturally-left block. */
-html[dir="rtl"] .service-features {
-    text-align: right;
-}
-
-/* The About page's "Our Story" copy (.section-title.text-start plus
-   the .text-start wrapper around its paragraphs) is a deliberate
-   exception to that same rule: kept left-aligned on purpose in RTL
-   too, at the user's request, because it read as neater/more
-   professional than mirroring it — Bootstrap's .text-start utility is
-   text-align:left !important, which already beats any attempt to flip
-   it here, so nothing further is needed to keep it pinned left. */
-
-/* The list container's text flipped to the right, but each <li>'s
-   padding-left (reserved space for the icon) and the icon's own
-   left:0 absolute position are physical/LTR-only — so the checkmark
-   stayed pinned to the left edge while the text moved right, opening
-   up a big gap between them instead of the icon sitting right next
-   to its text. Mirror both to the right side to match. */
-html[dir="rtl"] .service-features li {
-    padding-left: 0;
-    padding-right: 26px;
-}
-
-html[dir="rtl"] .service-features li i {
-    left: auto;
-    right: 0;
-}
+/* .service-features (the checkmark feature lists on the Services page
+   cards) and the About page's "Our Story" copy are both deliberate
+   exceptions to the general "naturally-left content flips right"
+   rule: per explicit request, only the CARD/CONTAINER position should
+   mirror in RTL (the cards themselves reorder right-to-left along
+   with everything else on the page) — the feature-list text and its
+   checkmark icons should stay left-aligned exactly as in LTR, not flip.
+   The base stylesheet already sets .service-features to text-align:left
+   with the icon at left:0, so simply not overriding either one here
+   keeps them pinned left in RTL too; an earlier version of this file
+   did flip both to the right, which has been reverted. */
 
 /* A handful of components mix a number with a text label as two
    separate inline pieces inside the same block (e.g. `<div
