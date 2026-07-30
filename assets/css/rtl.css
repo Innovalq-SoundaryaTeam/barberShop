@@ -134,6 +134,17 @@ html[dir="rtl"] .service-detail-content li {
     text-align: left;
 }
 
+/* The generic `html[dir="rtl"] ul { padding-right:1.5rem; padding-left:0 }`
+   rule (further down) is meant for native-bullet lists that flip with
+   direction; .service-feature-list draws its own bullet via ::before
+   with a fixed `left:0` (see style.css) so it doesn't need — and
+   shouldn't get — that padding swap. Zero it back out so no empty gap
+   opens on the right. */
+html[dir="rtl"] .service-feature-list {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 /* A handful of components mix a number with a text label as two
    separate inline pieces inside the same block (e.g. `<div
    class="price">₹1000 <span>/visit</span></div>` or `<div><strong>

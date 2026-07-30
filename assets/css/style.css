@@ -511,6 +511,32 @@ body.light-mode .hero-content p {
     color: var(--color-primary);
 }
 
+/* Service Details page feature list (#serviceFeatureList): plain
+   text items with no icon markup, so instead of relying on the
+   browser's native list marker (which follows the container's
+   `direction` and moves to the right in RTL), draw the bullet
+   ourselves with ::before and pin it with `left: 0`. `left` is a
+   physical property unaffected by direction, so the bullet stays on
+   the visual left of the text in both LTR and RTL. */
+.service-feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+}
+
+.service-feature-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+}
+
+.service-feature-list li::before {
+    content: '\2022';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+}
+
 /* ==================================================
    SERVICE CARD IMAGES
    ================================================== */
