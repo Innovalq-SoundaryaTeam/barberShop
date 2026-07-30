@@ -359,13 +359,25 @@ html[dir="rtl"] .cta-banner {
    CONTACT PAGE
    ================================================== */
 
-html[dir="rtl"] .contact-info {
-    text-align: right;
+/* The contact page's Contact Information card actually uses the
+   classes .contact-card / .contact-list / .hours-list — .contact-info
+   (above) doesn't exist anywhere in the markup, so those two rules
+   never did anything. Per the same "container mirrors, text stays
+   left" rule used elsewhere this session, the heading, list items
+   (address/phone/email/website), business hours, and "Follow Us"
+   heading should all stay left-aligned after the RTL toggle rather
+   than picking up the inherited text-align:right from <body>. The li
+   override is needed for the usual specificity reason: `html[dir="rtl"]
+   li` elsewhere in this file targets <li> directly and would otherwise
+   win over the inherited left-align from .contact-card. */
+html[dir="rtl"] .col-lg-5 .contact-card,
+html[dir="rtl"] .col-lg-5 .contact-card h2,
+html[dir="rtl"] .col-lg-5 .contact-card h3 {
+    text-align: left;
 }
 
-html[dir="rtl"] .contact-info i {
-    margin-left: .75rem;
-    margin-right: 0;
+html[dir="rtl"] .col-lg-5 .contact-card li {
+    text-align: left;
 }
 
 /* ==================================================
