@@ -96,6 +96,15 @@ html[dir="rtl"] .pricing-card .btn {
     text-align: center;
 }
 
+/* Same issue on the "Learn More" buttons inside the Related Services
+   cards (.service-card .card-body-custom is already text-center by
+   design, but the generic `html[dir="rtl"] a { text-align:right }`
+   rule targets the <a class="btn"> directly, overriding that inherited
+   centering). Keep these centered in RTL too. */
+html[dir="rtl"] .service-card .btn {
+    text-align: center;
+}
+
 /* Same specificity gotcha as above, but the opposite fix: the
    Membership Plans cards were deliberately made fully centered
    (title, price, feature list, and button all text-align:center) at
