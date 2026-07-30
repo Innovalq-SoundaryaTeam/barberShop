@@ -87,13 +87,13 @@ html[dir="rtl"] .pricing-features li {
     text-align: left;
 }
 
-/* Same exception applied to the "Book Now" buttons on the Service
-   Packages pricing cards: buttons don't have their own text-align, so
-   they were inheriting text-align:right from <body>. Per the same
-   "container mirrors, text stays left" rule, force the label back to
-   the left regardless of RTL. */
+/* The "Book Now" buttons on the Service Packages pricing cards: buttons
+   don't have their own text-align, so they were inheriting
+   text-align:right from <body>, which looked off-center inside the
+   wide pill button. Per follow-up request, these should be centered
+   instead of left- or right-aligned, regardless of RTL. */
 html[dir="rtl"] .pricing-card .btn {
-    text-align: left;
+    text-align: center;
 }
 
 /* Same specificity gotcha as above, but the opposite fix: the
@@ -219,6 +219,21 @@ html[dir="rtl"] table {
 html[dir="rtl"] th,
 html[dir="rtl"] td {
     text-align: right;
+}
+
+/* Same "container mirrors, text stays left" exception as
+   .service-features/.pricing-features/.pricing-card .btn above: the
+   Pricing Packages table (.table-dark-custom) is text-center in the
+   base LTR markup, but the generic `html[dir="rtl"] th, td` rule above
+   targets cells directly and wins over the inherited center-align,
+   forcing them right instead. Per repeated instruction this session,
+   this table's heading and cell content should stay left-aligned
+   after the RTL toggle rather than flipping to right or staying
+   centered. Higher specificity (class + thead/tbody + type) beats the
+   generic rule above. */
+html[dir="rtl"] .table-dark-custom th,
+html[dir="rtl"] .table-dark-custom td {
+    text-align: left;
 }
 
 /* ==================================================

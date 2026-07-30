@@ -884,8 +884,18 @@ body.light-mode .hero-content p {
     color: var(--color-text);
 }
 
-.table-dark-custom th {
-    color: var(--color-primary);
+/* Bootstrap's own `.table` class sets --bs-table-bg:#fff and applies it
+   directly to each th/td (not just the <table> element), so every cell
+   renders on a white background regardless of dark/light mode. In dark
+   mode, the generic `.table thead th { color:#FFFFFF }` rule (further
+   down this file) then puts white header text on that same white cell
+   background, making "Package / Features / Price" invisible. Raising
+   this rule's specificity (thead th, not just th) and adding !important
+   guarantees the gold header text always wins over both that rule and
+   light mode's `td, th` recolor override, so it stays visible in both
+   modes. */
+.table-dark-custom thead th {
+    color: var(--color-primary) !important;
 }
 
 /* ==================================================
