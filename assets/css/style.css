@@ -624,7 +624,19 @@ body.light-mode .hero-content p {
 .service-icon {
     width: 80px;
     height: 80px;
-    margin: auto;
+    /* Was `margin: auto`. .card-body-custom (the icon's parent) is a
+       flex-column container, so a shorthand `auto` also sets
+       margin-top/bottom to auto — on the main axis of a column flex
+       container, top/bottom auto margins absorb whatever leftover
+       vertical space is left over in that specific card, pushing the
+       icon (and everything after it: the step number, the paragraph)
+       down by a different amount in each card depending on how long
+       that card's own paragraph is. That's why "01/02/03/04" landed on
+       different heights across the "How Booking Works" cards even
+       though the cards themselves were the same height. Restricting
+       the auto margin to left/right keeps it horizontally centered
+       without absorbing any vertical space. */
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
