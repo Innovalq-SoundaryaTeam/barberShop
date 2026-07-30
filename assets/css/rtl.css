@@ -380,6 +380,18 @@ html[dir="rtl"] .col-lg-5 .contact-card li {
     text-align: left;
 }
 
+/* The sitewide `.social-links { direction: rtl }` rule (further down,
+   originally written for the footer) also reaches this card's YouTube/
+   X/Instagram/Facebook row. Since that row is a full-width flex
+   container, `direction: rtl` redefines "flex-start" to mean the right
+   edge, so the icons cluster against the right side of the card
+   instead of sitting under "Follow Us" on the left. Cancel it back to
+   ltr here so the icons stay put on the left like the rest of the
+   card's content. */
+html[dir="rtl"] .col-lg-5 .contact-card .social-links {
+    direction: ltr;
+}
+
 /* ==================================================
    MAP EMBED
    ================================================== */
