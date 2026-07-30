@@ -66,17 +66,36 @@ html[dir="rtl"] button {
     unicode-bidi: plaintext;
 }
 
-/* .service-features (the checkmark feature lists on the Services page
-   cards) and the About page's "Our Story" copy are both deliberate
-   exceptions to the general "naturally-left content flips right"
-   rule: per explicit request, only the CARD/CONTAINER position should
-   mirror in RTL (the cards themselves reorder right-to-left along
-   with everything else on the page) — the feature-list text and its
-   checkmark icons should stay left-aligned exactly as in LTR, not flip.
-   The base stylesheet already sets .service-features to text-align:left
-   with the icon at left:0, so simply not overriding either one here
-   keeps them pinned left in RTL too; an earlier version of this file
-   did flip both to the right, which has been reverted. */
+/* .service-features / .pricing-features (the checkmark and bullet
+   feature lists on the Services and Pricing page cards) and the About
+   page's "Our Story" copy are all deliberate exceptions to the general
+   "naturally-left content flips right" rule above: per explicit
+   request, only the CARD/CONTAINER position should mirror in RTL (the
+   cards themselves reorder right-to-left along with everything else
+   on the page) — the feature-list text and its checkmark icons should
+   stay left-aligned exactly as in LTR, not flip. The base stylesheet
+   already sets both lists to text-align:left, but that alone isn't
+   enough: `html[dir="rtl"] li` above targets the <li> elements
+   THEMSELVES with higher specificity (html + [dir] + li) than a plain
+   `.service-features li` rule (class + li) would have, so it was still
+   winning and forcing each item's text back to the right even though
+   the list container was correctly left-aligned. These two rules add
+   the extra `html[dir="rtl"]` prefix so they carry enough specificity
+   to actually beat that general rule. */
+html[dir="rtl"] .service-features li,
+html[dir="rtl"] .pricing-features li {
+    text-align: left;
+}
+
+/* Same specificity gotcha as above, but the opposite fix: the
+   Membership Plans cards were deliberately made fully centered
+   (title, price, feature list, and button all text-align:center) at
+   the user's request, but `html[dir="rtl"] li`'s higher specificity
+   was silently forcing each <li>'s own text back to right instead of
+   letting it inherit center from .membership-card. */
+html[dir="rtl"] .membership-card li {
+    text-align: center;
+}
 
 /* A handful of components mix a number with a text label as two
    separate inline pieces inside the same block (e.g. `<div
