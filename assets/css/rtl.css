@@ -66,13 +66,36 @@ html[dir="rtl"] button {
     unicode-bidi: plaintext;
 }
 
-/* The only two places the base stylesheet explicitly left-aligns
-   text (everything else is either centered-by-design or already
-   left by default/inherited) — flip these two to match every other
+/* The only other place the base stylesheet explicitly left-aligns
+   text (everything else is either centered-by-design or already left
+   by default/inherited) — flip this one to match every other
    naturally-left block. */
-html[dir="rtl"] .service-features,
-html[dir="rtl"] .section-title.text-start {
+html[dir="rtl"] .service-features {
     text-align: right;
+}
+
+/* The About page's "Our Story" copy (.section-title.text-start plus
+   the .text-start wrapper around its paragraphs) is a deliberate
+   exception to that same rule: kept left-aligned on purpose in RTL
+   too, at the user's request, because it read as neater/more
+   professional than mirroring it — Bootstrap's .text-start utility is
+   text-align:left !important, which already beats any attempt to flip
+   it here, so nothing further is needed to keep it pinned left. */
+
+/* The list container's text flipped to the right, but each <li>'s
+   padding-left (reserved space for the icon) and the icon's own
+   left:0 absolute position are physical/LTR-only — so the checkmark
+   stayed pinned to the left edge while the text moved right, opening
+   up a big gap between them instead of the icon sitting right next
+   to its text. Mirror both to the right side to match. */
+html[dir="rtl"] .service-features li {
+    padding-left: 0;
+    padding-right: 26px;
+}
+
+html[dir="rtl"] .service-features li i {
+    left: auto;
+    right: 0;
 }
 
 /* A handful of components mix a number with a text label as two
