@@ -106,6 +106,25 @@ html[dir="rtl"] .membership-card li {
     text-align: center;
 }
 
+/* Service Details page (service-details.html): the heading, both
+   description paragraphs, feature checklist, and price tag in the
+   right-hand column are naturally left-aligned in the base LTR
+   design. Per the same "container mirrors, text stays left" rule
+   applied elsewhere, they should stay left-aligned after the RTL
+   toggle too — only the column's position next to the image mirrors.
+   The li needs its own override for the same specificity reason as
+   .service-features/.pricing-features above. */
+html[dir="rtl"] .service-detail-content,
+html[dir="rtl"] .service-detail-content h2,
+html[dir="rtl"] .service-detail-content p,
+html[dir="rtl"] .service-detail-content .service-price-tag {
+    text-align: left;
+}
+
+html[dir="rtl"] .service-detail-content li {
+    text-align: left;
+}
+
 /* A handful of components mix a number with a text label as two
    separate inline pieces inside the same block (e.g. `<div
    class="price">₹1000 <span>/visit</span></div>` or `<div><strong>
