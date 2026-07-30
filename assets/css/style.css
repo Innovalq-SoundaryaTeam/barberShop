@@ -1330,6 +1330,11 @@ body.light-mode .hero-content p {
     list-style:none;
     padding:0;
     margin-bottom:2rem;
+    /* Explicit (not just inherited default) so it also stays put in
+       RTL: like the Services page's checkmark lists, only the card's
+       position in the row should mirror in RTL — this list's own text
+       stays left-aligned rather than picking up body's text-align:right. */
+    text-align:left;
 }
 
 .pricing-features li{

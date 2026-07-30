@@ -321,23 +321,26 @@ html[dir="rtl"] .me-auto {
     margin-right: 0 !important;
 }
 
-html[dir="rtl"] .ms-1,
-html[dir="rtl"] .ms-2,
-html[dir="rtl"] .ms-3,
-html[dir="rtl"] .ms-4,
-html[dir="rtl"] .ms-5 {
-    margin-right: inherit !important;
-    margin-left: 0 !important;
-}
+/* `margin-right: inherit` here previously meant "inherit whatever
+   margin-right the PARENT element has" — margin is not an inherited
+   CSS property, so this never actually recovered the utility's own
+   spacing value. It only looked like it worked wherever the parent
+   happened to already carry a similar margin of its own (coincidence),
+   and produced 0 spacing everywhere else (e.g. the footer logo's icon
+   gap collapsing to nothing while the navbar logo's happened to pick
+   up an unrelated 1rem from .navbar-brand's own margin). Using the
+   actual Bootstrap 5 spacer value for each class fixes it for real. */
+html[dir="rtl"] .ms-1 { margin-right: .25rem !important; margin-left: 0 !important; }
+html[dir="rtl"] .ms-2 { margin-right: .5rem !important; margin-left: 0 !important; }
+html[dir="rtl"] .ms-3 { margin-right: 1rem !important; margin-left: 0 !important; }
+html[dir="rtl"] .ms-4 { margin-right: 1.5rem !important; margin-left: 0 !important; }
+html[dir="rtl"] .ms-5 { margin-right: 3rem !important; margin-left: 0 !important; }
 
-html[dir="rtl"] .me-1,
-html[dir="rtl"] .me-2,
-html[dir="rtl"] .me-3,
-html[dir="rtl"] .me-4,
-html[dir="rtl"] .me-5 {
-    margin-left: inherit !important;
-    margin-right: 0 !important;
-}
+html[dir="rtl"] .me-1 { margin-left: .25rem !important; margin-right: 0 !important; }
+html[dir="rtl"] .me-2 { margin-left: .5rem !important; margin-right: 0 !important; }
+html[dir="rtl"] .me-3 { margin-left: 1rem !important; margin-right: 0 !important; }
+html[dir="rtl"] .me-4 { margin-left: 1.5rem !important; margin-right: 0 !important; }
+html[dir="rtl"] .me-5 { margin-left: 3rem !important; margin-right: 0 !important; }
 
 /* ==================================================
    BOOTSTRAP GRID — direction:rtl on <html> handles column flow automatically
